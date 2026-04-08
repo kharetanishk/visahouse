@@ -23,7 +23,10 @@ export function Hero() {
 
         <div className="absolute inset-0 wood-grain opacity-60" aria-hidden />
 
-        <div className="pointer-events-none absolute inset-0 opacity-[0.07]" aria-hidden>
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.07]"
+          aria-hidden
+        >
           <Image
             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='600' viewBox='0 0 1200 600'%3E%3Cg fill='none' stroke='%231C2F4A' stroke-opacity='0.65'%3E%3Cpath d='M120 220c90-90 220-120 360-100 120 18 208 78 320 96 160 26 292-28 380-106' stroke-dasharray='2 10' stroke-width='2'/%3E%3Cpath d='M90 420c160-140 330-200 520-160 160 34 260 128 410 142 124 12 225-24 290-78' stroke-dasharray='2 10' stroke-width='2'/%3E%3Ccircle cx='210' cy='250' r='2'/%3E%3Ccircle cx='520' cy='180' r='2'/%3E%3Ccircle cx='820' cy='230' r='2'/%3E%3Ccircle cx='980' cy='130' r='2'/%3E%3Ccircle cx='280' cy='440' r='2'/%3E%3Ccircle cx='640' cy='360' r='2'/%3E%3Ccircle cx='1000' cy='380' r='2'/%3E%3C/g%3E%3C/svg%3E"
             alt="Decorative dotted world map outline"
@@ -33,16 +36,28 @@ export function Hero() {
           />
         </div>
 
-        <div className="pointer-events-none absolute left-6 top-28 hidden lg:block" aria-hidden>
+        <div
+          className="pointer-events-none absolute left-6 top-28 hidden lg:block"
+          aria-hidden
+        >
           <div className="sku-surface wood-grain w-[150px] rotate-[-10deg] p-4 opacity-90">
-            <div className="font-accent text-lg text-accent-burgundy">APPROVED</div>
-            <div className="mt-1 text-xs text-text-secondary">Passport stamp</div>
+            <div className="font-accent text-lg text-accent-burgundy">
+              APPROVED
+            </div>
+            <div className="mt-1 text-xs text-text-secondary">
+              Passport stamp
+            </div>
           </div>
         </div>
-        <div className="pointer-events-none absolute right-6 top-32 hidden lg:block" aria-hidden>
+        <div
+          className="pointer-events-none absolute right-6 top-32 hidden lg:block"
+          aria-hidden
+        >
           <div className="sku-surface wood-grain w-[160px] rotate-[10deg] p-4 opacity-90">
             <div className="font-accent text-lg text-accent-forest">TRAVEL</div>
-            <div className="mt-1 text-xs text-text-secondary">Visa validated</div>
+            <div className="mt-1 text-xs text-text-secondary">
+              Visa validated
+            </div>
           </div>
         </div>
 
@@ -59,18 +74,18 @@ export function Hero() {
 
               <FadeUp delay={0.1}>
                 <motion.h1
-                id="home-title"
-                className="mt-6 font-display text-[40px] leading-[1.05] tracking-tight text-accent-navy sm:text-[56px] lg:text-[64px]"
-              >
-                Your Visa. Our Responsibility.
+                  id="home-title"
+                  className="mt-6 font-display text-[40px] leading-[1.05] tracking-tight text-accent-navy sm:text-[56px] lg:text-[64px]"
+                >
+                  Your Visa. Our Responsibility.
                 </motion.h1>
               </FadeUp>
 
               <FadeUp delay={0.2}>
                 <p className="mt-5 max-w-2xl font-body text-base leading-7 text-text-secondary sm:text-lg">
-                  From Mumbai to the world — we&apos;ve helped 25,000+ travellers reach their
-                  destination stress-free. Tourist, business, student or work visa — we
-                  handle it all.
+                  From India to the world — we&apos;ve helped 25,000+ travellers
+                  reach their destination stress-free. Tourist, business,
+                  student or work visa — we handle it all.
                 </p>
               </FadeUp>
 
@@ -82,13 +97,19 @@ export function Hero() {
 
               <FadeUp delay={0.4}>
                 <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-body text-text-secondary">
-                  <TrustInline icon={<CheckCircle2 className="h-4 w-4" aria-hidden />}>
+                  <TrustInline
+                    icon={<CheckCircle2 className="h-4 w-4" aria-hidden />}
+                  >
                     10+ Years Experience
                   </TrustInline>
-                  <TrustInline icon={<CheckCircle2 className="h-4 w-4" aria-hidden />}>
+                  <TrustInline
+                    icon={<CheckCircle2 className="h-4 w-4" aria-hidden />}
+                  >
                     99% Approval Rate
                   </TrustInline>
-                  <TrustInline icon={<CheckCircle2 className="h-4 w-4" aria-hidden />}>
+                  <TrustInline
+                    icon={<CheckCircle2 className="h-4 w-4" aria-hidden />}
+                  >
                     90+ Countries
                   </TrustInline>
                 </div>
@@ -126,7 +147,8 @@ export function Hero() {
                     Quick Support
                   </div>
                   <div className="mt-1 text-sm text-text-secondary">
-                    WhatsApp us anytime — a real visa expert responds within 24 hours.
+                    WhatsApp us anytime — a real visa expert responds within 24
+                    hours.
                   </div>
                 </div>
                 <div className="mt-6 grid grid-cols-2 gap-3">
@@ -201,9 +223,10 @@ function StatPill({ value, label }: { value: string; label: string }) {
 function MiniChip({ title, detail }: { title: string; detail: string }) {
   return (
     <div className="rounded-xl border border-black/10 bg-[rgba(253,248,240,0.82)] p-3 shadow-sku-raised">
-      <div className="font-body text-sm font-semibold text-accent-navy">{title}</div>
+      <div className="font-body text-sm font-semibold text-accent-navy">
+        {title}
+      </div>
       <div className="mt-1 text-xs font-body text-text-secondary">{detail}</div>
     </div>
   );
 }
-

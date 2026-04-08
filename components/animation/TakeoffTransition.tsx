@@ -2,8 +2,6 @@
 
 import * as React from "react";
 import { createPortal } from "react-dom";
-import { useAnimate } from "framer-motion";
-
 import { PlaneAnimation } from "./PlaneAnimation";
 import { SmokePuffs } from "./SmokePuffs";
 import { SmokeCurtain } from "./SmokeCurtain";
@@ -15,208 +13,237 @@ export interface TakeoffTransitionProps {
   onComplete: () => void;
 }
 
-export function TakeoffTransition({ countryKey, onNavigationReady, onComplete }: TakeoffTransitionProps) {
+function waapi(
+  el: Element | null,
+  keyframes: Keyframe[],
+  options: KeyframeAnimationOptions
+): Animation | null {
+  if (!el) return null;
+  return el.animate(keyframes, options);
+}
+
+function done(anim: Animation | null): Promise<void> {
+  if (!anim) return Promise.resolve();
+  return anim.finished.then(() => undefined);
+}
+
+function pause(ms: number): Promise<void> {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
+export function TakeoffTransition({
+  countryKey,
+  onNavigationReady,
+  onComplete,
+}: TakeoffTransitionProps) {
   const [mounted, setMounted] = React.useState(false);
-  const [scope, animate] = useAnimate();
-  const completedRef = React.useRef(false);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const doneRef = React.useRef(false);
 
   React.useEffect(() => {
     setMounted(true);
   }, []);
 
   const finish = React.useCallback(() => {
-    if (completedRef.current) return;
-    completedRef.current = true;
+    if (doneRef.current) return;
+    doneRef.current = true;
     document.body.style.overflow = "";
     onComplete();
   }, [onComplete]);
-
-  const abort = React.useCallback(() => {
-    if (completedRef.current) return;
-    onNavigationReady(countryKey);
-    finish();
-  }, [countryKey, finish, onNavigationReady]);
 
   React.useEffect(() => {
     if (!mounted) return;
 
     document.body.style.overflow = "hidden";
-
-    // Framer Motion's `useAnimate` has some strict overloads in TS; we keep usage
-    // correct at runtime while making types permissive here.
-    const a = animate as unknown as (
-      target: string | Element,
-      keyframes: Record<string, unknown>,
-      options?: Record<string, unknown>
-    ) => Promise<unknown>;
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") abort();
-    };
-    window.addEventListener("keydown", onKeyDown);
-
     let cancelled = false;
 
-    const runSequence = async () => {
-      document.body.style.overflow = "hidden";
-
-      // ── PHASE 1: Plane enters from below ──────────────────────
-      // Start: off-screen bottom, small
-      const vh = typeof window !== "undefined" ? window.innerHeight : 900;
-
-      const root = scope.current as HTMLElement | null;
-      const plane = root?.querySelector("#plane-wrapper") as HTMLElement | null;
-      if (!plane) {
-        throw new Error("Portal DOM not ready");
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        cancelled = true;
+        onNavigationReady(countryKey);
+        finish();
       }
-
-      await a(
-        plane,
-        { y: vh * 1.4, scale: 0.5, opacity: 0 },
-        { duration: 0 }
-      );
-
-      // ── PHASE 2/3: Single continuous flight (uniform speed) ────
-      // We animate position linearly (uniform velocity), while handling opacity separately
-      // to avoid a "mid-screen pause then rocket" feeling.
-      const flightDuration = 1.75;
-
-      // Fade in quickly (parallel)
-      a(plane, { opacity: 1 }, { duration: 0.2, ease: "easeOut" });
-
-      // Start contrail drawing (don't await)
-      const contrailPath = root?.querySelector("#contrail-path") ?? document.getElementById("contrail-path");
-      if (contrailPath) {
-        const len = ((contrailPath as unknown as SVGPathElement).getTotalLength?.() ?? 800) as number;
-        a(
-          contrailPath as unknown as Element,
-          { strokeDashoffset: [len, 0] },
-          { duration: 1.2, ease: "easeOut" }
-        );
-      }
-
-      // Smoke puffs (parallel)
-      a(
-        "#smoke-puff-1",
-        { scale: [0, 1.2], opacity: [0, 0.85] },
-        { duration: 0.25, delay: 0.25, ease: "easeOut" }
-      );
-      a(
-        "#smoke-puff-2",
-        { scale: [0, 1.8], opacity: [0, 0.6] },
-        { duration: 0.35, delay: 0.4, ease: "easeOut" }
-      );
-      a(
-        "#smoke-puff-3",
-        { scale: [0, 3], opacity: [0, 0.4] },
-        { duration: 0.4, delay: 1.05, ease: "easeOut" }
-      );
-
-      // Start smoke curtain so it completes as the plane disappears
-      const coverStart = 1.05;
-      const curtainCover = Promise.all([
-        a(
-          "#curtain-blob-1",
-          { scale: [0, 4], opacity: [0, 1] },
-          { duration: 0.65, delay: coverStart, ease: [0.22, 1, 0.36, 1] }
-        ),
-        a(
-          "#curtain-blob-2",
-          { scale: [0, 3.5], opacity: [0, 0.95] },
-          { duration: 0.6, delay: coverStart + 0.04, ease: [0.22, 1, 0.36, 1] }
-        ),
-        a(
-          "#curtain-blob-3",
-          { scale: [0, 3.5], opacity: [0, 0.95] },
-          { duration: 0.6, delay: coverStart + 0.08, ease: [0.22, 1, 0.36, 1] }
-        ),
-        a(
-          "#curtain-blob-4",
-          { scale: [0, 3], opacity: [0, 0.9] },
-          { duration: 0.55, delay: coverStart + 0.12, ease: [0.22, 1, 0.36, 1] }
-        ),
-        a(
-          "#curtain-blob-5",
-          { scale: [0, 2.5], opacity: [0, 0.92] },
-          { duration: 0.5, delay: coverStart + 0.18, ease: [0.22, 1, 0.36, 1] }
-        ),
-      ]);
-
-      // Linear flight from bottom off-screen → far above top
-      const flight = a(
-        plane,
-        { y: -vh * 1.3, scale: 1.5 },
-        { duration: flightDuration, ease: [0, 0, 1, 1] }
-      );
-
-      // Fade out near the end (parallel)
-      a(plane, { opacity: 0 }, { duration: 0.2, delay: flightDuration - 0.18, ease: "easeIn" });
-
-      // Wait for both flight and full cover so navigation happens exactly at cover completion
-      await Promise.all([flight, curtainCover]);
-
-      // ── SCREEN IS NOW FULLY COVERED ───────────────────────────
-      onNavigationReady(countryKey);
-
-      // Keep this extremely short to avoid perceived lag.
-      await new Promise((r) => setTimeout(r, 80));
-
-      // ── PHASE 5: CURTAIN DISPERSES (new page revealed) ────────
-      await Promise.all([
-        a("#curtain-blob-5", { opacity: 0, scale: 2 }, { duration: 0.4, ease: "easeIn" }),
-        a("#curtain-blob-4", { opacity: 0, scale: 2.5 }, { duration: 0.4, delay: 0.06, ease: "easeIn" }),
-        a("#curtain-blob-1", { opacity: 0, scale: 3.5 }, { duration: 0.45, delay: 0.1, ease: "easeIn" }),
-        a("#curtain-blob-2", { opacity: 0, scale: 3 }, { duration: 0.4, delay: 0.14, ease: "easeIn" }),
-        a("#curtain-blob-3", { opacity: 0, scale: 3 }, { duration: 0.4, delay: 0.18, ease: "easeIn" }),
-      ]);
-
-      // ── PHASE 6: SPARKLES TWINKLE ─────────────────────────────
-      await Promise.all([
-        a("#sparkle-1", { scale: [0, 1.2, 0], opacity: [0, 1, 0] }, { duration: 0.4 }),
-        a("#sparkle-2", { scale: [0, 1.2, 0], opacity: [0, 1, 0] }, { duration: 0.4, delay: 0.1 }),
-        a("#sparkle-3", { scale: [0, 1.2, 0], opacity: [0, 1, 0] }, { duration: 0.4, delay: 0.2 }),
-      ]);
-
-      // ── CLEANUP ───────────────────────────────────────────────
-      document.body.style.overflow = "";
-      onComplete();
     };
+    window.addEventListener("keydown", onKey);
 
-    // Ensure the portal DOM is mounted before querying/animating.
-    let raf = 0;
-    const tick = () => {
-      raf = window.requestAnimationFrame(() => {
-        runSequence()
-          .catch(() => tick());
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (cancelled) return;
+        run();
       });
-    };
-    tick();
+    });
+
+    async function run() {
+      const root = containerRef.current;
+      if (!root || cancelled) return finish();
+
+      const $ = (sel: string) => root.querySelector(sel);
+      const vh = window.innerHeight;
+      const plane = $("#plane-wrapper") as HTMLElement | null;
+      if (!plane) return finish();
+
+      try {
+        // ─── PHASE 1: Plane enters from below ──────────────────────
+        const enter = waapi(plane, [
+          {
+            transform: `translateY(${vh * 1.6}px) scale(0.5)`,
+            opacity: "0",
+          },
+          {
+            transform: `translateY(${vh * 0.05}px) scale(1)`,
+            opacity: "1",
+          },
+        ], {
+          duration: 800,
+          easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+          fill: "forwards",
+        });
+
+        // Fire smoke puff 1 while plane is still rising (no separate wait)
+        await pause(350);
+        if (cancelled) return;
+        waapi($("#smoke-puff-1"), [
+          { transform: "scale(0)", opacity: "0" },
+          { transform: "scale(2)", opacity: "0.8" },
+        ], { duration: 300, easing: "ease-out", fill: "forwards" });
+
+        // Start contrail early too
+        const trail = $("#contrail-path") as SVGPathElement | null;
+        if (trail?.getTotalLength) {
+          const len = trail.getTotalLength();
+          waapi(trail, [
+            { strokeDashoffset: `${len}` },
+            { strokeDashoffset: "0" },
+          ], { duration: 1200, easing: "ease-out", fill: "forwards" });
+        }
+
+        await done(enter);
+        if (cancelled) return;
+
+        // ─── PHASE 2: Plane rockets off + clouds start simultaneously ─
+        waapi($("#smoke-puff-2"), [
+          { transform: "scale(0)", opacity: "0" },
+          { transform: "scale(3)", opacity: "0.6" },
+        ], { duration: 400, easing: "ease-out", fill: "forwards" });
+
+        waapi($("#smoke-puff-3"), [
+          { transform: "scale(0)", opacity: "0" },
+          { transform: "scale(5)", opacity: "0.4" },
+        ], { duration: 500, delay: 150, easing: "ease-out", fill: "forwards" });
+
+        const flight = waapi(plane, [
+          {
+            transform: `translateY(${vh * 0.05}px) scale(1)`,
+            opacity: "1",
+          },
+          {
+            transform: `translateY(${-vh * 1.6}px) scale(1.35)`,
+            opacity: "0",
+          },
+        ], {
+          duration: 850,
+          easing: "cubic-bezier(0.45, 0, 0.85, 0.35)",
+          fill: "forwards",
+        });
+
+        // Clouds start immediately — no separate wait
+        const blobs = [
+          { sel: "#curtain-blob-1", s: 6, d: 80 },
+          { sel: "#curtain-blob-2", s: 5.5, d: 120 },
+          { sel: "#curtain-blob-3", s: 5.5, d: 160 },
+          { sel: "#curtain-blob-4", s: 5, d: 220 },
+          { sel: "#curtain-blob-5", s: 4.5, d: 300 },
+        ];
+
+        const curtainDone = Promise.all(
+          blobs.map(({ sel, s, d }) =>
+            new Promise<void>((resolve) => {
+              setTimeout(() => {
+                const a = waapi($(sel), [
+                  { transform: "scale(0)", opacity: "0" },
+                  { transform: `scale(${s})`, opacity: "1" },
+                ], {
+                  duration: 650,
+                  easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+                  fill: "forwards",
+                });
+                done(a).then(resolve);
+              }, d);
+            })
+          )
+        );
+
+        await Promise.all([done(flight), curtainDone]);
+        if (cancelled) return;
+
+        // ─── SCREEN IS FULLY COVERED — navigate ────────────────────
+        onNavigationReady(countryKey);
+        await pause(120);
+
+        // ─── PHASE 3: Clouds part (reveal new page) ────────────────
+        const disperseOrder = [
+          "#curtain-blob-5",
+          "#curtain-blob-4",
+          "#curtain-blob-1",
+          "#curtain-blob-2",
+          "#curtain-blob-3",
+        ];
+        await Promise.all(
+          disperseOrder.map((sel, i) =>
+            new Promise<void>((resolve) => {
+              setTimeout(() => {
+                const a = waapi($(sel), [
+                  { opacity: "1" },
+                  { opacity: "0" },
+                ], { duration: 400, easing: "ease-in", fill: "forwards" });
+                done(a).then(resolve);
+              }, i * 70);
+            })
+          )
+        );
+
+        // ─── Sparkle twinkles ───────────────────────────────────────
+        await Promise.all(
+          ["#sparkle-1", "#sparkle-2", "#sparkle-3"].map((sel, i) =>
+            new Promise<void>((resolve) => {
+              setTimeout(() => {
+                const a = waapi($(sel), [
+                  { transform: "scale(0)", opacity: "0" },
+                  { transform: "scale(1.5)", opacity: "1", offset: 0.5 },
+                  { transform: "scale(0)", opacity: "0" },
+                ], { duration: 350, fill: "forwards" });
+                done(a).then(resolve);
+              }, i * 100);
+            })
+          )
+        );
+
+        finish();
+      } catch {
+        finish();
+      }
+    }
 
     return () => {
-      window.cancelAnimationFrame(raf);
       cancelled = true;
-      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [abort, animate, countryKey, finish, mounted, onNavigationReady, scope, onComplete]);
-
-  /*
-  runSequence().catch(() => {
-      // If anything goes wrong, fail safe: unlock scroll and complete
-      finish();
-    });
-  */
+  }, [mounted, countryKey, onNavigationReady, finish]);
 
   if (!mounted) return null;
 
   return createPortal(
     <div
-      ref={scope}
-      style={{ position: "fixed", inset: 0, zIndex: 9995, pointerEvents: "none" }}
+      ref={containerRef}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 9995,
+        pointerEvents: "none",
+        overflow: "hidden",
+      }}
       aria-hidden="true"
-      role="presentation"
     >
       <ContrailTrail />
       <SmokeCurtain />
@@ -226,4 +253,3 @@ export function TakeoffTransition({ countryKey, onNavigationReady, onComplete }:
     document.body
   );
 }
-

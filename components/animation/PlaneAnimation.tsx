@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import PlaneSVG from "./svg/PlaneSVG";
 
 export function PlaneAnimation() {
@@ -10,12 +9,11 @@ export function PlaneAnimation() {
         position: "fixed",
         left: "50%",
         top: "50%",
+        width: "clamp(320px, 80vw, 800px)",
+        height: "clamp(320px, 80vw, 800px)",
+        transform: "translate(-50%, -50%)",
         zIndex: 10000,
         pointerEvents: "none",
-        // Bigger on mobile, capped on desktop
-        width: "min(110vw, 620px)",
-        height: "min(110vw, 620px)",
-        transform: "translate(-50%, -50%) translateZ(0)",
       }}
     >
       <div
@@ -23,11 +21,9 @@ export function PlaneAnimation() {
         style={{
           width: "100%",
           height: "100%",
-          opacity: 0, // prevent first-paint flash before sequence sets initial state
+          opacity: 0,
           willChange: "transform, opacity",
-          filter: "drop-shadow(0 20px 60px rgba(92,61,30,0.5))",
-          pointerEvents: "none",
-          transform: "translateZ(0)",
+          filter: "drop-shadow(0 30px 80px rgba(92,61,30,0.55))",
         }}
       >
         <PlaneSVG style={{ width: "100%", height: "100%" }} />
@@ -35,4 +31,3 @@ export function PlaneAnimation() {
     </div>
   );
 }
-

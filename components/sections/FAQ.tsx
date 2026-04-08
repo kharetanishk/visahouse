@@ -43,18 +43,18 @@ export function FAQ() {
                 id={buttonId}
                 onClick={() => setOpenIndex((v) => (v === idx ? null : idx))}
                 className={cn(
-                  "flex w-full items-center justify-between gap-4 rounded-[var(--radius-lg)] px-6 py-5 text-left transition-colors",
+                  "flex w-full items-start justify-between gap-3 rounded-[var(--radius-lg)] px-4 sm:px-6 py-4 sm:py-5 text-left transition-colors",
                   isOpen
                     ? "bg-[rgba(253,248,240,0.86)]"
                     : "bg-transparent hover:bg-[rgba(253,248,240,0.75)]"
                 )}
               >
-                <h3 className="font-display text-base sm:text-lg text-accent-navy">
+                <h3 className="pr-1 font-display text-base sm:text-lg text-accent-navy">
                   {f.question}
                 </h3>
                 <span
                   className={cn(
-                    "inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-[rgba(253,248,240,0.85)] shadow-sku-raised transition-transform",
+                    "mt-0.5 inline-flex h-9 w-9 min-h-9 min-w-9 shrink-0 items-center justify-center rounded-full border border-black/10 bg-[rgba(253,248,240,0.85)] shadow-sku-raised transition-transform sm:h-10 sm:w-10",
                     isOpen && "rotate-180"
                   )}
                   aria-hidden

@@ -32,8 +32,8 @@ export function CTAButton(props: CTAButtonAsButton | CTAButtonAsLink) {
 
   const styles =
     variant === "primary"
-      ? "text-white bg-[var(--btn-gradient)] shadow-sku-raised border border-[#A0702A] hover:shadow-sku-pressed hover:translate-y-px"
-      : "text-wood-deep bg-transparent border-2 border-wood-deep shadow-sku-raised hover:shadow-sku-pressed hover:translate-y-px";
+      ? "text-[#23180A] bg-[#EC9706] shadow-sku-raised border border-[#CB8105] hover:bg-[#D98905] hover:text-[#180F05] hover:shadow-sku-pressed hover:translate-y-px"
+      : "text-[#23180A] bg-[#EC9706] border-2 border-[#CB8105] shadow-sku-raised hover:bg-[#D98905] hover:text-[#180F05] hover:border-[#B67304] hover:shadow-sku-pressed hover:translate-y-px";
 
   const className = cn(base, styles, props.className);
 

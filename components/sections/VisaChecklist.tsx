@@ -19,6 +19,16 @@ type VisaChecklistProps = {
 
 const UNIVERSAL_IDS = ["passport-front", "passport-back", "photograph"] as const;
 
+function toTwemojiFlagSrc(flag: string) {
+  const codePoints = Array.from(flag)
+    .map((ch) => ch.codePointAt(0)?.toString(16))
+    .filter(Boolean)
+    .join("-");
+  return codePoints
+    ? `https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/${codePoints}.svg`
+    : null;
+}
+
 export function VisaChecklist({ country }: VisaChecklistProps) {
   const [openGroups, setOpenGroups] = React.useState<Record<number, boolean>>({});
   const [modalDoc, setModalDoc] = React.useState<DocumentItem | null>(null);
@@ -35,6 +45,7 @@ export function VisaChecklist({ country }: VisaChecklistProps) {
   const restMandatory = allMandatory.filter((d) => !seen.has(d.id));
 
   const requiredCount = universal.length + restMandatory.length;
+  const flagSrc = toTwemojiFlagSrc(country.flag);
 
   const openReference = (doc: DocumentItem) => {
     if (!doc.referenceImage) return;
@@ -53,20 +64,35 @@ export function VisaChecklist({ country }: VisaChecklistProps) {
     <>
       <SectionWrapper
         id="visa-checklist"
-        title={`${country.flag} ${country.countryName}`}
-        subtitle="A clear, step-by-step document checklist — prepared by VisaHouse experts."
+        hideHeader
         aiSummary={`VisaChecklist — Document checklist for ${country.countryName}: required documents, conditional documents, important warnings, and an apply sidebar form.`}
         className="bg-warm-white"
       >
         <div className="grid gap-8 lg:grid-cols-[1fr_384px]">
           <div className="min-w-0">
             <header aria-label="Country visa header" className="mb-8">
+              <Link
+                href="/#visa-search"
+                aria-label="Search more countries"
+                className="mb-2 inline-flex items-center gap-1 font-body text-xs font-semibold text-text-muted hover:text-accent-burgundy transition-colors"
+              >
+                <span aria-hidden>&larr;</span>
+                <span>Search more</span>
+              </Link>
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <div className="flex items-center gap-3">
-                    <span className="text-[48px]" aria-hidden>
-                      {country.flag}
-                    </span>
+                    {flagSrc ? (
+                      <img
+                        src={flagSrc}
+                        alt={`${country.countryName} flag`}
+                        className="h-11 w-11 object-contain"
+                      />
+                    ) : (
+                      <span className="text-[48px]" aria-hidden>
+                        {country.flag}
+                      </span>
+                    )}
                     <h2 className="font-display text-3xl sm:text-4xl text-accent-navy">
                       {country.countryName}
                     </h2>

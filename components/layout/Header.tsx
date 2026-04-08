@@ -3,11 +3,12 @@
 import * as React from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, MessageCircle, Stamp } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CTAButton } from "@/components/ui/CTAButton";
 
 const navLinks = [
+  { label: "Home", href: "/" },
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Destinations", href: "#destinations" },
@@ -43,7 +44,7 @@ export function Header() {
         className={cn(
           "border-b border-black/5 bg-[rgba(245,236,215,0.72)] backdrop-blur-[12px] transition-all",
           scrolled &&
-            "bg-[rgba(232,213,176,0.78)] shadow-[0_1px_0_rgba(255,255,255,0.55)_inset,0_10px_30px_rgba(92,61,30,0.10)]"
+            "bg-[rgba(232,213,176,0.78)] shadow-[0_1px_0_rgba(255,255,255,0.55)_inset,0_10px_30px_rgba(92,61,30,0.10)]",
         )}
       >
         <div className="container">
@@ -53,9 +54,11 @@ export function Header() {
               aria-label="VisaHouse home"
               className="flex items-center gap-2"
             >
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-black/10 bg-[rgba(253,248,240,0.8)] shadow-sku-raised">
-                <Stamp className="h-5 w-5 text-accent-navy" aria-hidden />
-              </span>
+              <img
+                src="/assests/visahouselogo.png"
+                alt="VisaHouse logo"
+                className="h-9 w-9 object-contain"
+              />
               <span className="font-display text-xl tracking-tight text-accent-navy">
                 VisaHouse
               </span>
@@ -82,9 +85,14 @@ export function Header() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Chat on WhatsApp"
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-black/10 bg-[rgba(253,248,240,0.8)] shadow-sku-raised hover:shadow-sku-pressed hover:translate-y-px transition-all"
+                  className="inline-flex items-center justify-center transition-transform duration-150 hover:scale-105"
                 >
-                  <MessageCircle className="h-5 w-5 text-accent-forest" aria-hidden />
+                  <img
+                    src="/assests/whatsapp-icon.png"
+                    alt="WhatsApp icon"
+                    aria-hidden="true"
+                    className="h-9 w-9 object-contain"
+                  />
                 </Link>
                 <CTAButton href="#contact" ariaLabel="Apply now">
                   Apply Now
@@ -98,9 +106,14 @@ export function Header() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Chat on WhatsApp"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-black/10 bg-[rgba(253,248,240,0.8)] shadow-sku-raised"
+                className="inline-flex items-center justify-center transition-transform duration-150 active:scale-95"
               >
-                <MessageCircle className="h-5 w-5 text-accent-forest" aria-hidden />
+                <img
+                  src="/assests/whatsapp-icon.png"
+                  alt="WhatsApp icon"
+                  aria-hidden="true"
+                  className="h-9 w-9 object-contain"
+                />
               </Link>
               <button
                 type="button"
@@ -108,7 +121,11 @@ export function Header() {
                 onClick={() => setOpen((v) => !v)}
                 className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-black/10 bg-[rgba(253,248,240,0.8)] shadow-sku-raised hover:shadow-sku-pressed hover:translate-y-px transition-all"
               >
-                {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                {open ? (
+                  <X className="h-5 w-5" />
+                ) : (
+                  <Menu className="h-5 w-5" />
+                )}
               </button>
             </div>
           </div>
@@ -157,4 +174,3 @@ export function Header() {
 }
 
 export default Header;
-

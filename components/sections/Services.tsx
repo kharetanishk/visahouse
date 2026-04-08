@@ -1,9 +1,19 @@
 "use client";
 
 import Link from "next/link";
+import { BriefcaseBusiness, GraduationCap, Luggage, Plane, PlaneTakeoff, RefreshCcw } from "lucide-react";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SkeuCard } from "@/components/ui/SkeuCard";
 import { services } from "@/lib/data/services";
+
+function getServiceIcon(title: string) {
+  if (title.includes("Tourist")) return <Plane className="h-7 w-7 text-accent-gold" aria-hidden />;
+  if (title.includes("Business")) return <BriefcaseBusiness className="h-7 w-7 text-accent-gold" aria-hidden />;
+  if (title.includes("Student")) return <GraduationCap className="h-7 w-7 text-accent-gold" aria-hidden />;
+  if (title.includes("Work")) return <PlaneTakeoff className="h-7 w-7 text-accent-gold" aria-hidden />;
+  if (title.includes("Transit")) return <RefreshCcw className="h-7 w-7 text-accent-gold" aria-hidden />;
+  return <Luggage className="h-7 w-7 text-accent-gold" aria-hidden />;
+}
 
 export function Services() {
   return (
@@ -16,8 +26,11 @@ export function Services() {
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((s) => (
           <SkeuCard key={s.title} as="article" className="flex h-full flex-col">
-            <div className="text-[40px]" aria-hidden>
-              {s.icon}
+            <div
+              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-[rgba(253,248,240,0.85)] shadow-sku-raised"
+              aria-hidden
+            >
+              {getServiceIcon(s.title)}
             </div>
             <h3 className="mt-4 font-display text-xl text-accent-navy">
               {s.title}

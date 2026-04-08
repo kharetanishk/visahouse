@@ -108,7 +108,7 @@ export function VisaSearch() {
                 className={cn(
                   "sku-input wood-grain w-full py-4 pl-12 pr-4 font-body text-[16px] text-text-secondary outline-none transition-shadow",
                   "shadow-[inset_0_2px_6px_rgba(92,61,30,0.20)]",
-                  "focus:ring-0 focus:shadow-[inset_0_2px_6px_rgba(92,61,30,0.20),0_0_0_3px_rgba(201,151,58,0.25)]"
+                  "focus:ring-0 focus:shadow-[inset_0_2px_6px_rgba(92,61,30,0.20),0_0_0_3px_rgba(201,151,58,0.25)]",
                 )}
               />
             </div>
@@ -147,7 +147,7 @@ export function VisaSearch() {
                             "flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition-colors",
                             idx === activeIndex
                               ? "bg-[rgba(253,248,240,0.85)]"
-                              : "hover:bg-[rgba(253,248,240,0.75)]"
+                              : "hover:bg-[rgba(253,248,240,0.75)]",
                           )}
                         >
                           <div className="flex items-center gap-3">
@@ -174,7 +174,10 @@ export function VisaSearch() {
                   <div className="px-5 py-5">
                     <div className="flex items-start gap-3">
                       <span className="mt-0.5 inline-flex h-10 w-10 items-center justify-center rounded-md border border-black/10 bg-[rgba(253,248,240,0.85)] shadow-sku-raised">
-                        <Search className="h-5 w-5 text-accent-gold" aria-hidden />
+                        <Search
+                          className="h-5 w-5 text-accent-gold"
+                          aria-hidden
+                        />
                       </span>
                       <div>
                         <div className="font-display text-sm text-accent-navy">
@@ -190,23 +193,23 @@ export function VisaSearch() {
                             className="font-body text-sm font-semibold text-accent-burgundy hover:underline underline-offset-4"
                             onClick={() => setOpen(false)}
                           >
-                            Contact us for this country <span aria-hidden>→</span>
+                            Contact us for this country{" "}
+                            <span aria-hidden>→</span>
                           </Link>
                         </div>
                       </div>
                     </div>
                   </div>
                 )}
-
               </motion.div>
             ) : null}
           </AnimatePresence>
         </div>
 
         <div className="mt-3 text-center font-body text-xs text-text-muted">
-          Tip: type <span className="font-semibold">UAE</span>,{" "}
+          Tip: type <span className="font-semibold">USA</span>,{" "}
           <span className="font-semibold">Dubai</span>, or{" "}
-          <span className="font-semibold">Emirates</span>.
+          <span className="font-semibold">Australia</span>.
         </div>
       </div>
     </div>
@@ -220,4 +223,3 @@ function simplifyVisaType(visaType: string) {
   if (t.includes("required")) return "Visa Required";
   return visaType.length > 18 ? visaType.slice(0, 18) + "…" : visaType;
 }
-

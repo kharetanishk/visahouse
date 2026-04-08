@@ -1,39 +1,40 @@
 "use client";
 
+import { BadgeCheck, Globe2, Languages, Smartphone, TimerReset, Wallet } from "lucide-react";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SkeuCard } from "@/components/ui/SkeuCard";
 
 const items = [
   {
-    icon: "🎯",
+    icon: <BadgeCheck className="h-7 w-7 text-accent-gold" aria-hidden />,
     title: "99% Approval Rate",
     description:
       "Our structured process and document verification ensures industry-leading success rates.",
   },
   {
-    icon: "📱",
+    icon: <Smartphone className="h-7 w-7 text-accent-gold" aria-hidden />,
     title: "100% Online Process",
     description: "Submit documents digitally. No travel to our office ever required.",
   },
   {
-    icon: "🕐",
+    icon: <TimerReset className="h-7 w-7 text-accent-gold" aria-hidden />,
     title: "24-Hour Response Guarantee",
     description:
       "Every enquiry gets a response from a real visa expert within 24 hours.",
   },
   {
-    icon: "🌐",
+    icon: <Globe2 className="h-7 w-7 text-accent-gold" aria-hidden />,
     title: "90+ Countries Expertise",
     description:
       "From Schengen to Southeast Asia, we know every country's latest visa rules.",
   },
   {
-    icon: "💬",
+    icon: <Languages className="h-7 w-7 text-accent-gold" aria-hidden />,
     title: "Hindi & English Support",
     description: "We serve clients in both languages — no barriers, no confusion.",
   },
   {
-    icon: "🔒",
+    icon: <Wallet className="h-7 w-7 text-accent-gold" aria-hidden />,
     title: "Zero Hidden Fees",
     description:
       "Our pricing is fully transparent. You know what you pay before we start.",
@@ -51,7 +52,10 @@ export function WhyChooseUs() {
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((i) => (
           <SkeuCard key={i.title} as="article" className="h-full">
-            <div className="text-[40px]" aria-hidden>
+            <div
+              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-[rgba(253,248,240,0.85)] shadow-sku-raised"
+              aria-hidden
+            >
               {i.icon}
             </div>
             <h3 className="mt-4 font-display text-xl text-accent-navy">
