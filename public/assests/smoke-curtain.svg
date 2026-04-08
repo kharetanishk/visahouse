@@ -1,0 +1,191 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1440 900"
+  preserveAspectRatio="xMidYMid slice"
+  role="presentation"
+  aria-hidden="true"
+>
+  <!--
+    VisaHouse — Smoke Curtain SVG
+    Used as full-screen overlay during page transition.
+
+    5 large organic blobs. Framer Motion animates each:
+      - scale: 0 → 3+ (from engine position, expanding outward)
+      - opacity: 0 → 1 (staggered fill)
+    Combined they cover the full 1440×900 viewport.
+
+    Stagger order for animation: blob-1 → blob-2 → blob-3 → blob-4 → blob-5
+    Timing: 0.0s, 0.1s, 0.15s, 0.2s, 0.25s
+
+    Transform origin for each blob set to its center point.
+  -->
+
+  <defs>
+    <radialGradient id="curtain-grad-warm" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#FAF3E8"/>
+      <stop offset="70%"  stop-color="#F5ECD7"/>
+      <stop offset="100%" stop-color="#EDD9B5"/>
+    </radialGradient>
+    <radialGradient id="curtain-grad-mid" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#F0E4C8"/>
+      <stop offset="100%" stop-color="#E8D5B0"/>
+    </radialGradient>
+    <radialGradient id="curtain-grad-deep" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#EDD9B5"/>
+      <stop offset="100%" stop-color="#DECA9E"/>
+    </radialGradient>
+  </defs>
+
+  <!-- ════════════════════════════════════════════════════
+       BLOB 1 — Bottom center, largest, fills ~60% width
+       Center: 720, 750
+       Scale origin: center-bottom of screen
+       ════════════════════════════════════════════════════ -->
+  <g id="curtain-blob-1">
+    <path
+      d="
+        M 720 900
+        C 500 880, 280 820, 220 720
+        C 160 620, 200 500, 300 440
+        C 360 400, 440 410, 500 450
+        C 520 380, 580 330, 660 320
+        C 700 310, 740 315, 780 330
+        C 840 290, 920 310, 960 370
+        C 1020 340, 1100 360, 1140 420
+        C 1220 380, 1300 440, 1300 540
+        C 1340 600, 1320 700, 1260 760
+        C 1180 840, 960 900, 720 900
+        Z
+      "
+      fill="url(#curtain-grad-warm)"
+      opacity="0.95"
+    />
+  </g>
+
+  <!-- ════════════════════════════════════════════════════
+       BLOB 2 — Bottom left, medium-large, overlaps blob-1
+       Center: 280, 780
+       ════════════════════════════════════════════════════ -->
+  <g id="curtain-blob-2">
+    <path
+      d="
+        M 0 900
+        C 0 800, 20 700, 80 640
+        C 40 580, 60 500, 120 460
+        C 160 430, 220 435, 260 460
+        C 280 400, 340 370, 400 380
+        C 440 370, 480 390, 500 430
+        C 540 400, 590 420, 600 470
+        C 640 460, 670 490, 660 540
+        C 690 560, 700 600, 680 650
+        C 700 700, 680 760, 640 800
+        C 580 860, 440 900, 280 900
+        C 180 900, 80 900, 0 900
+        Z
+      "
+      fill="url(#curtain-grad-mid)"
+      opacity="0.9"
+    />
+  </g>
+
+  <!-- ════════════════════════════════════════════════════
+       BLOB 3 — Bottom right, medium-large, overlaps blob-1
+       Center: 1200, 780
+       ════════════════════════════════════════════════════ -->
+  <g id="curtain-blob-3">
+    <path
+      d="
+        M 1440 900
+        C 1440 800, 1420 700, 1360 640
+        C 1400 580, 1380 500, 1320 460
+        C 1280 430, 1220 432, 1180 460
+        C 1160 400, 1100 368, 1040 378
+        C 1000 368, 960 390, 940 430
+        C 900 398, 850 420, 840 468
+        C 800 458, 770 490, 780 540
+        C 750 558, 740 600, 760 650
+        C 740 700, 760 760, 800 800
+        C 860 860, 1000 900, 1160 900
+        C 1280 900, 1380 900, 1440 900
+        Z
+      "
+      fill="url(#curtain-grad-mid)"
+      opacity="0.9"
+    />
+  </g>
+
+  <!-- ════════════════════════════════════════════════════
+       BLOB 4 — Center screen, fills gaps between 1/2/3
+       Center: 720, 500
+       ════════════════════════════════════════════════════ -->
+  <g id="curtain-blob-4">
+    <path
+      d="
+        M 400 640
+        C 360 580, 370 500, 420 450
+        C 400 390, 430 330, 480 310
+        C 510 290, 555 295, 580 320
+        C 600 270, 645 240, 695 245
+        C 720 238, 748 242, 770 260
+        C 795 230, 840 228, 870 255
+        C 905 235, 950 255, 965 295
+        C 1005 290, 1040 320, 1042 365
+        C 1080 380, 1095 425, 1075 470
+        C 1100 510, 1090 565, 1050 600
+        C 1060 650, 1030 700, 980 720
+        C 960 760, 910 780, 860 768
+        C 840 800, 795 814, 750 805
+        C 718 820, 678 818, 648 800
+        C 618 826, 568 824, 540 798
+        C 500 810, 450 788, 430 754
+        C 390 730, 375 685, 400 640
+        Z
+      "
+      fill="url(#curtain-grad-warm)"
+      opacity="0.88"
+    />
+  </g>
+
+  <!-- ════════════════════════════════════════════════════
+       BLOB 5 — Top area, last to appear, seals the screen
+       Center: 720, 200
+       ════════════════════════════════════════════════════ -->
+  <g id="curtain-blob-5">
+    <path
+      d="
+        M 200 0
+        C 240 40, 220 120, 270 170
+        C 230 220, 250 300, 310 330
+        C 300 380, 340 430, 400 440
+        C 420 480, 470 500, 530 490
+        C 555 530, 605 550, 655 535
+        C 675 570, 720 585, 768 570
+        C 790 608, 840 622, 888 605
+        C 910 640, 960 650, 1005 630
+        C 1030 660, 1080 660, 1115 635
+        C 1148 658, 1195 648, 1215 615
+        C 1260 610, 1300 576, 1305 530
+        C 1350 508, 1370 456, 1345 406
+        C 1380 368, 1370 300, 1320 268
+        C 1330 210, 1298 148, 1240 128
+        C 1230 76, 1180 38, 1120 36
+        C 1090 8, 1040 -4, 990 10
+        C 960 -10, 915 -16, 872 0
+        C 840 -18, 788 -20, 748 0
+        C 715 -18, 665 -16, 632 2
+        C 600 -14, 548 -10, 516 8
+        C 482 -4, 430 4, 404 30
+        C 365 24, 320 42, 305 80
+        C 262 86, 222 118, 215 162
+        C 180 176, 158 218, 168 264
+        C 140 296, 135 352, 158 394
+        C 140 434, 148 490, 178 524
+        L 200 0
+        Z
+      "
+      fill="url(#curtain-grad-deep)"
+      opacity="0.92"
+    />
+  </g>
+
+</svg>

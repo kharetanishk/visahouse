@@ -1,0 +1,127 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1440 900"
+  preserveAspectRatio="xMidYMid slice"
+  role="presentation"
+  aria-hidden="true"
+>
+  <!--
+    VisaHouse — Contrail / Flight Path Trail SVG
+
+    Animate with Framer Motion:
+      - stroke-dashoffset: full length → 0  (path draws itself)
+      - opacity: 0 → 0.7 → 0               (appears then fades)
+
+    Sparkles animate:
+      - scale: 0 → 1 → 0 (twinkle, staggered along path)
+      - opacity: 0 → 1 → 0
+  -->
+
+  <defs>
+    <!-- Contrail gradient: gold fading to transparent -->
+    <linearGradient id="trail-grad" x1="0" y1="1" x2="1" y2="0"
+      gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#C9A96E" stop-opacity="0"/>
+      <stop offset="30%"  stop-color="#C9973A" stop-opacity="0.5"/>
+      <stop offset="70%"  stop-color="#C9973A" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#E8B84B" stop-opacity="0.3"/>
+    </linearGradient>
+
+    <!-- Sparkle filter -->
+    <filter id="sparkle-glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!--
+    CONTRAIL PATH
+    Starts bottom-center (720, 900), sweeps up and left to (280, 60)
+    Graceful arc — natural flight trajectory
+    stroke-dasharray should be set in JS to the path's total length
+    then animated from full dashoffset → 0
+  -->
+  <path
+    id="contrail-path"
+    d="M 720 920 C 700 750, 640 580, 560 420 C 480 260, 400 160, 280 60"
+    fill="none"
+    stroke="url(#trail-grad)"
+    stroke-width="2.5"
+    stroke-dasharray="8 10"
+    stroke-linecap="round"
+    opacity="0.65"
+  />
+
+  <!-- Secondary softer trail (slightly offset for depth) -->
+  <path
+    id="contrail-path-soft"
+    d="M 730 920 C 710 750, 650 580, 570 420 C 490 260, 408 160, 288 60"
+    fill="none"
+    stroke="#C9A96E"
+    stroke-width="1"
+    stroke-dasharray="3 14"
+    stroke-linecap="round"
+    opacity="0.3"
+  />
+
+  <!--
+    SPARKLE 1 — at ~25% along the path (~620, 680)
+    4-pointed star shape
+  -->
+  <g id="sparkle-1" transform="translate(620, 680)" opacity="0">
+    <path
+      d="M 0 -8 L 1.5 -1.5 L 8 0 L 1.5 1.5 L 0 8 L -1.5 1.5 L -8 0 L -1.5 -1.5 Z"
+      fill="#C9973A"
+      filter="url(#sparkle-glow)"
+    />
+    <!-- Center dot -->
+    <circle cx="0" cy="0" r="1.5" fill="#E8B84B"/>
+  </g>
+
+  <!--
+    SPARKLE 2 — at ~50% along the path (~520, 450)
+    Slightly larger
+  -->
+  <g id="sparkle-2" transform="translate(520, 450)" opacity="0">
+    <path
+      d="M 0 -10 L 2 -2 L 10 0 L 2 2 L 0 10 L -2 2 L -10 0 L -2 -2 Z"
+      fill="#C9973A"
+      filter="url(#sparkle-glow)"
+    />
+    <circle cx="0" cy="0" r="2" fill="#E8B84B"/>
+  </g>
+
+  <!--
+    SPARKLE 3 — at ~78% along the path (~370, 200)
+    Slightly smaller, near destination
+  -->
+  <g id="sparkle-3" transform="translate(370, 200)" opacity="0">
+    <path
+      d="M 0 -7 L 1.2 -1.2 L 7 0 L 1.2 1.2 L 0 7 L -1.2 1.2 L -7 0 L -1.2 -1.2 Z"
+      fill="#E8B84B"
+      filter="url(#sparkle-glow)"
+    />
+    <circle cx="0" cy="0" r="1.5" fill="#FAF3E8"/>
+  </g>
+
+  <!--
+    Small dot trail — extra detail along the path
+    These are static subtle dots that appear with the contrail
+  -->
+  <g id="trail-dots" opacity="0.4">
+    <circle cx="680" cy="800" r="2" fill="#C9973A"/>
+    <circle cx="645" cy="710" r="1.5" fill="#C9973A"/>
+    <circle cx="610" cy="620" r="2" fill="#C9A96E"/>
+    <circle cx="575" cy="535" r="1.5" fill="#C9A96E"/>
+    <circle cx="545" cy="455" r="2" fill="#C9973A"/>
+    <circle cx="510" cy="375" r="1.5" fill="#C9A96E"/>
+    <circle cx="472" cy="298" r="2" fill="#C9973A"/>
+    <circle cx="432" cy="225" r="1.5" fill="#C9A96E"/>
+    <circle cx="385" cy="158" r="2" fill="#C9973A"/>
+    <circle cx="332" cy="105" r="1.5" fill="#C9A96E"/>
+  </g>
+
+</svg>
