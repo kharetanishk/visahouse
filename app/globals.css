@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+img.emoji {
+  height: 1em;
+  width: 1em;
+  vertical-align: -0.1em;
+  display: inline-block;
+}
+
 :root {
   /* Warm wooden / parchment palette */
   --wood-light: #f5ecd7;
@@ -154,9 +161,28 @@
   }
 }
 
+@keyframes stamp-sway {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(1.5deg);
+  }
+}
+
+.stamp-sway {
+  animation: stamp-sway 4s ease-in-out infinite;
+}
+
+.stamp-sway-delayed {
+  animation-delay: 2s;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .testimonial-marquee-left,
-  .testimonial-marquee-right {
+  .testimonial-marquee-right,
+  .stamp-sway {
     animation: none;
   }
 }

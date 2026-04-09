@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { VisaSearch } from "@/components/sections/VisaSearch";
+import { PassportAside } from "@/components/sections/PassportAside";
 
 export function Hero() {
   return (
@@ -36,28 +37,25 @@ export function Hero() {
           />
         </div>
 
+        {/* Left stamp — ENTRY PERMIT / APPROVED */}
         <div
-          className="pointer-events-none absolute left-6 top-28 hidden lg:block"
+          className="pointer-events-none absolute left-[-20px] top-[120px] z-0 hidden scale-75 opacity-70 xl:block xl:scale-100 xl:opacity-85"
           aria-hidden
+          style={{ mixBlendMode: "multiply", overflow: "visible" }}
         >
-          <div className="sku-surface wood-grain w-[150px] rotate-[-10deg] p-4 opacity-90">
-            <div className="font-accent text-lg text-accent-burgundy">
-              APPROVED
-            </div>
-            <div className="mt-1 text-xs text-text-secondary">
-              Passport stamp
-            </div>
+          <div className="stamp-sway" style={{ transform: "rotate(-12deg)" }}>
+            <EntryPermitStamp />
           </div>
         </div>
+
+        {/* Right stamp — VISA VALIDATED / CLEARED */}
         <div
-          className="pointer-events-none absolute right-6 top-32 hidden lg:block"
+          className="pointer-events-none absolute right-0 top-[140px] z-0 hidden scale-75 opacity-70 xl:block xl:right-[-10px] xl:scale-100 xl:opacity-85"
           aria-hidden
+          style={{ mixBlendMode: "multiply", overflow: "visible" }}
         >
-          <div className="sku-surface wood-grain w-[160px] rotate-[10deg] p-4 opacity-90">
-            <div className="font-accent text-lg text-accent-forest">TRAVEL</div>
-            <div className="mt-1 text-xs text-text-secondary">
-              Visa validated
-            </div>
+          <div className="stamp-sway stamp-sway-delayed" style={{ transform: "rotate(14deg)" }}>
+            <VisaValidatedStamp />
           </div>
         </div>
 
@@ -75,7 +73,7 @@ export function Hero() {
               <FadeUp delay={0.1}>
                 <motion.h1
                   id="home-title"
-                  className="mt-6 font-display text-[40px] leading-[1.05] tracking-tight text-accent-navy sm:text-[56px] lg:text-[64px]"
+                  className="relative z-10 mt-6 font-display text-[40px] leading-[1.05] tracking-tight text-accent-navy sm:text-[56px] lg:text-[64px]"
                 >
                   Your Visa. Our Responsibility.
                 </motion.h1>
@@ -125,48 +123,7 @@ export function Hero() {
               </FadeUp>
             </div>
 
-            <motion.aside
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, ease: "easeOut", delay: 0.15 }}
-              className="lg:col-span-5"
-              aria-label="VisaHouse brochure preview"
-            >
-              <div className="sku-surface wood-grain relative overflow-hidden p-6 sm:p-8">
-                <div className="absolute inset-0 opacity-40" aria-hidden />
-                <div className="flex items-center justify-between">
-                  <div className="font-display text-xl text-accent-navy">
-                    VisaHouse
-                  </div>
-                  <div className="rounded-full border border-black/10 bg-[rgba(253,248,240,0.8)] px-3 py-1 text-xs font-body font-semibold text-text-secondary shadow-sku-raised">
-                    Mumbai, India
-                  </div>
-                </div>
-                <div className="mt-6 rounded-xl border border-black/10 bg-[rgba(253,248,240,0.85)] p-4 shadow-sku-pressed">
-                  <div className="text-sm font-body font-semibold text-accent-navy">
-                    Quick Support
-                  </div>
-                  <div className="mt-1 text-sm text-text-secondary">
-                    WhatsApp us anytime — a real visa expert responds within 24
-                    hours.
-                  </div>
-                </div>
-                <div className="mt-6 grid grid-cols-2 gap-3">
-                  <MiniChip title="Tourist" detail="90+ countries" />
-                  <MiniChip title="Business" detail="Priority options" />
-                  <MiniChip title="Student" detail="Top destinations" />
-                  <MiniChip title="Work" detail="Guided process" />
-                </div>
-                <div className="mt-6">
-                  <div className="text-xs font-body text-text-muted">
-                    Logo / hero image assets intentionally not included.
-                  </div>
-                  <div className="mt-2 flex h-28 items-center justify-center rounded-xl border border-dashed border-black/20 bg-[rgba(245,236,215,0.4)] text-sm font-body text-text-secondary shadow-sku-pressed">
-                    Brochure Image / Office Visual — Placeholder
-                  </div>
-                </div>
-              </div>
-            </motion.aside>
+            <PassportAside />
           </div>
         </div>
       </section>
@@ -220,13 +177,104 @@ function StatPill({ value, label }: { value: string; label: string }) {
   );
 }
 
-function MiniChip({ title, detail }: { title: string; detail: string }) {
+function EntryPermitStamp() {
+  const c = "#7c1d1d";
   return (
-    <div className="rounded-xl border border-black/10 bg-[rgba(253,248,240,0.82)] p-3 shadow-sku-raised">
-      <div className="font-body text-sm font-semibold text-accent-navy">
-        {title}
-      </div>
-      <div className="mt-1 text-xs font-body text-text-secondary">{detail}</div>
-    </div>
+    <svg width="110" height="110" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Concentric circles */}
+      <circle cx="70" cy="70" r="66" stroke={c} strokeWidth="2.5" />
+      <circle cx="70" cy="70" r="58" stroke={c} strokeWidth="1" strokeDasharray="4 3" />
+      <circle cx="70" cy="70" r="52" stroke={c} strokeWidth="0.8" />
+
+      {/* Top arc text: ENTRY PERMIT */}
+      <path id="hero-ep-top" d="M 18 70 A 52 52 0 0 1 122 70" fill="none" />
+      <text fontFamily="Georgia, serif" fontSize="8.5" fill={c} letterSpacing="3" fontWeight="700">
+        <textPath href="#hero-ep-top" startOffset="50%" textAnchor="middle">ENTRY PERMIT</textPath>
+      </text>
+
+      {/* Bottom arc text: INDIA • MHA */}
+      <path id="hero-ep-bot" d="M 18 70 A 52 52 0 0 0 122 70" fill="none" />
+      <text fontFamily="Georgia, serif" fontSize="7" fill={c} letterSpacing="1.5">
+        <textPath href="#hero-ep-bot" startOffset="50%" textAnchor="middle">INDIA • MHA</textPath>
+      </text>
+
+      {/* Center star */}
+      <g transform="translate(70,58)">
+        <path d="M0-8 L1.8-2.5 8-2.5 3,1 5,7.5 0,3.5 -5,7.5 -3,1 -8-2.5 -1.8-2.5Z" fill={c} opacity="0.7" />
+      </g>
+
+      {/* Middle band lines */}
+      <line x1="28" y1="66" x2="112" y2="66" stroke={c} strokeWidth="0.6" />
+      <line x1="28" y1="80" x2="112" y2="80" stroke={c} strokeWidth="0.6" />
+
+      {/* APPROVED */}
+      <text x="70" y="76.5" textAnchor="middle" fontFamily="Georgia, serif" fontSize="11" fontWeight="700" fill={c} letterSpacing="4">APPROVED</text>
+
+      {/* City */}
+      <text x="70" y="91" textAnchor="middle" fontFamily="monospace" fontSize="7" fill={c} opacity="0.8">New Delhi</text>
+
+      {/* Date */}
+      <text x="70" y="103" textAnchor="middle" fontFamily="monospace" fontSize="8" fontWeight="700" fill={c}>14·MAR·2025</text>
+    </svg>
   );
 }
+
+function VisaValidatedStamp() {
+  const c = "#1a4a2a";
+  return (
+    <svg width="110" height="110" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Concentric circles */}
+      <circle cx="70" cy="70" r="66" stroke={c} strokeWidth="2.5" />
+      <circle cx="70" cy="70" r="58" stroke={c} strokeWidth="1" strokeDasharray="4 3" />
+      <circle cx="70" cy="70" r="52" stroke={c} strokeWidth="0.8" />
+
+      {/* Top arc text: VISA VALIDATED */}
+      <path id="hero-vv-top" d="M 18 70 A 52 52 0 0 1 122 70" fill="none" />
+      <text fontFamily="Georgia, serif" fontSize="8.5" fill={c} letterSpacing="3" fontWeight="700">
+        <textPath href="#hero-vv-top" startOffset="50%" textAnchor="middle">VISA VALIDATED</textPath>
+      </text>
+
+      {/* Bottom arc text: REPUBLIC OF INDIA */}
+      <path id="hero-vv-bot" d="M 18 70 A 52 52 0 0 0 122 70" fill="none" />
+      <text fontFamily="Georgia, serif" fontSize="7" fill={c} letterSpacing="1.5">
+        <textPath href="#hero-vv-bot" startOffset="50%" textAnchor="middle">REPUBLIC OF INDIA</textPath>
+      </text>
+
+      {/* Compass rose: 4 cardinal diamonds + 4 intercardinal smaller */}
+      <g transform="translate(70,58)">
+        {/* N */}
+        <path d="M0-10 L2.5-3 0 0 -2.5-3Z" fill={c} opacity="0.75" />
+        {/* S */}
+        <path d="M0 10 L2.5 3 0 0 -2.5 3Z" fill={c} opacity="0.75" />
+        {/* E */}
+        <path d="M10 0 L3-2.5 0 0 3 2.5Z" fill={c} opacity="0.75" />
+        {/* W */}
+        <path d="M-10 0 L-3-2.5 0 0 -3 2.5Z" fill={c} opacity="0.75" />
+        {/* NE */}
+        <path d="M6-6 L3.5-1.5 0 0 1.5-3.5Z" fill={c} opacity="0.45" />
+        {/* SE */}
+        <path d="M6 6 L3.5 1.5 0 0 1.5 3.5Z" fill={c} opacity="0.45" />
+        {/* SW */}
+        <path d="M-6 6 L-3.5 1.5 0 0 -1.5 3.5Z" fill={c} opacity="0.45" />
+        {/* NW */}
+        <path d="M-6-6 L-3.5-1.5 0 0 -1.5-3.5Z" fill={c} opacity="0.45" />
+        {/* center dot */}
+        <circle cx="0" cy="0" r="1.5" fill={c} opacity="0.6" />
+      </g>
+
+      {/* Middle band lines */}
+      <line x1="28" y1="66" x2="112" y2="66" stroke={c} strokeWidth="0.6" />
+      <line x1="28" y1="80" x2="112" y2="80" stroke={c} strokeWidth="0.6" />
+
+      {/* CLEARED */}
+      <text x="70" y="76.5" textAnchor="middle" fontFamily="Georgia, serif" fontSize="11" fontWeight="700" fill={c} letterSpacing="4">CLEARED</text>
+
+      {/* City */}
+      <text x="70" y="91" textAnchor="middle" fontFamily="monospace" fontSize="7" fill={c} opacity="0.8">Mumbai Intl.</text>
+
+      {/* Date */}
+      <text x="70" y="103" textAnchor="middle" fontFamily="monospace" fontSize="8" fontWeight="700" fill={c}>22·JUN·2025</text>
+    </svg>
+  );
+}
+

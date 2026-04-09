@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Playfair_Display, Lato, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { siteMetadata, siteConfig } from "@/lib/seo/metadata";
 import { faqs } from "@/lib/data/faqs";
 import { TransitionProvider } from "@/lib/context/TransitionContext";
+import { TwemojiBodyParser } from "@/components/TwemojiBodyParser";
 
 const display = Playfair_Display({
   variable: "--font-display",
@@ -129,6 +131,9 @@ export default function RootLayout({
         ))}
       </head>
       <body className="min-h-full flex flex-col">
+        <Suspense fallback={null}>
+          <TwemojiBodyParser />
+        </Suspense>
         <TransitionProvider>{children}</TransitionProvider>
       </body>
     </html>
