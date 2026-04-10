@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ArrowUp } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -22,10 +22,19 @@ import { cn } from "@/lib/utils";
 
 export function HomeClientPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
 
-  const countryKey = searchParams.get("country");
-  const selectedCountry = countryKey ? visaDocumentData[countryKey] : null;
+  // Avoid useSearchParams() so `/` can prerender without a Suspense CSR bailout.
+  const [countryKey, setCountryKey] = React.useState<string | null>(null);
+  const selectedCountry =
+    countryKey && visaDocumentData[countryKey] ? visaDocumentData[countryKey] : null;
+
+  React.useLayoutEffect(() => {
+    const read = () =>
+      setCountryKey(new URLSearchParams(window.location.search).get("country"));
+    read();
+    window.addEventListener("popstate", read);
+    return () => window.removeEventListener("popstate", read);
+  }, []);
 
   const [showBackToSearch, setShowBackToSearch] = React.useState(false);
   const [isLg, setIsLg] = React.useState(true);
@@ -59,9 +68,10 @@ export function HomeClientPage() {
   }, [selectedCountry, isLg]);
 
   const clearCountry = () => {
-    const next = new URLSearchParams(Array.from(searchParams.entries()));
+    const next = new URLSearchParams(window.location.search);
     next.delete("country");
     const qs = next.toString();
+    setCountryKey(null);
     router.push(qs ? `/?${qs}` : "/", { scroll: false });
     window.setTimeout(() => {
       document.getElementById("visa-search")?.scrollIntoView({ behavior: "smooth" });

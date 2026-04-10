@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
-import { siteConfig } from "@/lib/seo/metadata";
+import { siteConfig, whatsappChatUrl } from "@/lib/seo/metadata";
 
 const quickLinks = [
   { label: "Home", href: "#home" },
@@ -112,7 +112,7 @@ export function Footer() {
               </div>
               <div>
                 <Link
-                  href="https://wa.me/916260440241"
+                  href={whatsappChatUrl}
                   aria-label="WhatsApp VisaHouse"
                   className="hover:text-white transition-colors"
                 >
@@ -139,7 +139,7 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="container py-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div className="font-body text-xs text-[rgba(253,248,240,0.7)]">
-            © 2025 VisaHouse. All rights reserved. |{" "}
+            © 2026 VisaHouse. All rights reserved. |{" "}
             <Link href="#" aria-label="Privacy Policy" className="hover:text-white">
               Privacy Policy
             </Link>{" "}

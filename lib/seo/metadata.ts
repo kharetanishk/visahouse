@@ -2,17 +2,20 @@ import type { Metadata } from "next";
 
 export const siteConfig = {
   name: "VisaHouse",
-  url: "https://www.visahouse.in",
+  url: "https://visahouse.co.in",
   tagline: "Your Visa. Our Responsibility.",
   description:
     "VisaHouse is Mumbai's leading visa consultancy with 10+ years of experience, 99% approval rate, and expertise across 90+ countries. Tourist, Business, Student & Work visas handled end-to-end.",
-  phone: "+91 6260440241",
-  whatsapp: "+91 6260440241",
-  email: "hello@visahouse.in",
+  phone: "+91 77150 24527",
+  whatsapp: "+91 77150 24527",
+  email: "visahouse.co.in@gmail.com",
   address:
     "MASTER MIND 4, Office No A321, CTS No 1627, Royal Palm, Goregaon East, Mumbai – 400065",
   hours: "Mo-Sa 10:00-19:00",
 } as const;
+
+/** WhatsApp wa.me link — digits only after wa.me/ */
+export const whatsappChatUrl = `https://wa.me/${siteConfig.phone.replace(/\D/g, "")}`;
 
 export const siteMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),

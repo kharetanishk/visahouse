@@ -433,7 +433,7 @@ export function ApplicationForm({
               style={{ ...inputStyle, borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
               onFocus={applyFocusStyles}
               onBlur={clearFocusStyles}
-              placeholder="6260440241"
+              placeholder="7715024527"
             />
           </div>
         </FormField>

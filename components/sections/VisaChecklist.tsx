@@ -12,6 +12,7 @@ import { ContactSidebar } from "@/components/ui/ContactSidebar";
 import { CTAButton } from "@/components/ui/CTAButton";
 import { getIcon } from "@/lib/utils/iconMap";
 import { cn } from "@/lib/utils";
+import { whatsappChatUrl } from "@/lib/seo/metadata";
 
 type VisaChecklistProps = {
   country: CountryVisaData;
@@ -247,7 +248,7 @@ export function VisaChecklist({ country }: VisaChecklistProps) {
               <div className="mt-2 text-center font-body text-xs text-text-muted">
                 Prefer WhatsApp?{" "}
                 <Link
-                  href={`https://wa.me/916260440241?text=${encodeURIComponent(
+                  href={`${whatsappChatUrl}?text=${encodeURIComponent(
                     `Hi, I need help with ${country.countryName} visa`
                   )}`}
                   aria-label="Chat on WhatsApp"

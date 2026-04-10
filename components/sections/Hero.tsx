@@ -14,7 +14,7 @@ export function Hero() {
       <section
         id="home"
         aria-labelledby="home-title"
-        className="relative min-h-[90vh] overflow-hidden"
+        className="relative min-h-[90vh]"
         style={{ background: "var(--wood-gradient)" }}
       >
         <meta
@@ -22,19 +22,19 @@ export function Hero() {
           content="Hero — VisaHouse landing introduction with brand tagline, trust badge, embedded country search to reveal visa document checklists, micro trust indicators, and headline stats."
         />
 
-        <div className="absolute inset-0 wood-grain opacity-60" aria-hidden />
+        {/* Clip only background layers so the visa search dropdown is not cut off */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+          <div className="absolute inset-0 wood-grain opacity-60" />
 
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.07]"
-          aria-hidden
-        >
-          <Image
-            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='600' viewBox='0 0 1200 600'%3E%3Cg fill='none' stroke='%231C2F4A' stroke-opacity='0.65'%3E%3Cpath d='M120 220c90-90 220-120 360-100 120 18 208 78 320 96 160 26 292-28 380-106' stroke-dasharray='2 10' stroke-width='2'/%3E%3Cpath d='M90 420c160-140 330-200 520-160 160 34 260 128 410 142 124 12 225-24 290-78' stroke-dasharray='2 10' stroke-width='2'/%3E%3Ccircle cx='210' cy='250' r='2'/%3E%3Ccircle cx='520' cy='180' r='2'/%3E%3Ccircle cx='820' cy='230' r='2'/%3E%3Ccircle cx='980' cy='130' r='2'/%3E%3Ccircle cx='280' cy='440' r='2'/%3E%3Ccircle cx='640' cy='360' r='2'/%3E%3Ccircle cx='1000' cy='380' r='2'/%3E%3C/g%3E%3C/svg%3E"
-            alt="Decorative dotted world map outline"
-            fill
-            priority
-            className="object-cover"
-          />
+          <div className="absolute inset-0 opacity-[0.07]">
+            <Image
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='600' viewBox='0 0 1200 600'%3E%3Cg fill='none' stroke='%231C2F4A' stroke-opacity='0.65'%3E%3Cpath d='M120 220c90-90 220-120 360-100 120 18 208 78 320 96 160 26 292-28 380-106' stroke-dasharray='2 10' stroke-width='2'/%3E%3Cpath d='M90 420c160-140 330-200 520-160 160 34 260 128 410 142 124 12 225-24 290-78' stroke-dasharray='2 10' stroke-width='2'/%3E%3Ccircle cx='210' cy='250' r='2'/%3E%3Ccircle cx='520' cy='180' r='2'/%3E%3Ccircle cx='820' cy='230' r='2'/%3E%3Ccircle cx='980' cy='130' r='2'/%3E%3Ccircle cx='280' cy='440' r='2'/%3E%3Ccircle cx='640' cy='360' r='2'/%3E%3Ccircle cx='1000' cy='380' r='2'/%3E%3C/g%3E%3C/svg%3E"
+              alt="Decorative dotted world map outline"
+              fill
+              priority
+              className="object-cover"
+            />
+          </div>
         </div>
 
         {/* Left stamp — ENTRY PERMIT / APPROVED */}
@@ -59,7 +59,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="container relative">
+        <div className="container relative z-10">
           <div className="grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-12 lg:py-24">
             <div className="lg:col-span-7">
               <FadeUp delay={0.0}>
@@ -87,7 +87,7 @@ export function Hero() {
                 </p>
               </FadeUp>
 
-              <FadeUp delay={0.3}>
+              <FadeUp delay={0.3} className="relative z-30">
                 <div className="mt-7">
                   <VisaSearch />
                 </div>
@@ -134,12 +134,15 @@ export function Hero() {
 function FadeUp({
   delay,
   children,
+  className,
 }: {
   delay: number;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
     <motion.div
+      className={className}
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, delay }}

@@ -93,12 +93,38 @@ export async function POST(request: Request) {
       ? await Promise.all(files.map((file) => uploadToCloudinary(file)))
       : [];
 
-    await resend.emails.send({
-      from: process.env.EMAIL_FROM!,
-      to: [process.env.ADMIN_EMAIL1!, process.env.ADMIN_EMAIL2!],
+    const from = process.env.EMAIL_FROM?.trim();
+    const adminRecipients = [process.env.ADMIN_EMAIL1, process.env.ADMIN_EMAIL2]
+      .map((e) => e?.trim())
+      .filter((e): e is string => Boolean(e && isValidEmail(e)));
+
+    if (!from) {
+      console.error("Application submission failed: EMAIL_FROM is not set");
+      return NextResponse.json({ error: "Failed to submit application" }, { status: 500 });
+    }
+
+    if (!process.env.RESEND_API_KEY?.trim()) {
+      console.error("Application submission failed: RESEND_API_KEY is not set");
+      return NextResponse.json({ error: "Failed to submit application" }, { status: 500 });
+    }
+
+    if (adminRecipients.length === 0) {
+      console.error("Application submission failed: no valid ADMIN_EMAIL1 / ADMIN_EMAIL2");
+      return NextResponse.json({ error: "Failed to submit application" }, { status: 500 });
+    }
+
+    const { error: resendError } = await resend.emails.send({
+      from,
+      to: adminRecipients,
+      replyTo: data.email,
       subject: `New Visa Application — ${data.destinationCountry} | ${data.name}`,
       html: generateEmailHTML(data, uploadedDocs),
     });
+
+    if (resendError) {
+      console.error("Resend API error:", resendError);
+      return NextResponse.json({ error: "Failed to submit application" }, { status: 502 });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

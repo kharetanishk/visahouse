@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CTAButton } from "@/components/ui/CTAButton";
+import { whatsappChatUrl } from "@/lib/seo/metadata";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -81,7 +82,7 @@ export function Header() {
 
               <div className="flex items-center gap-3">
                 <Link
-                  href="https://wa.me/916260440241"
+                  href={whatsappChatUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Chat on WhatsApp"
@@ -102,7 +103,7 @@ export function Header() {
 
             <div className="lg:hidden flex items-center gap-2">
               <Link
-                href="https://wa.me/916260440241"
+                href={whatsappChatUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Chat on WhatsApp"

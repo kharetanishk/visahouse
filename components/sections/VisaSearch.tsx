@@ -60,7 +60,7 @@ export function VisaSearch() {
   };
 
   return (
-    <div id="visa-search" className="w-full">
+    <div id="visa-search" className="relative z-20 w-full">
       {/* Section: VisaSearch — Search bar with autocomplete to jump to country-specific visa document checklist and requirements */}
       <meta
         name="ai-content-summary"
@@ -68,9 +68,9 @@ export function VisaSearch() {
       />
 
       <div className="mx-auto max-w-[700px]">
-        <div className="relative">
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <div className="relative flex-1">
+        <div className="relative isolate">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch">
+            <div className="relative min-w-0 flex-1">
               <span
                 aria-hidden
                 className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-accent-gold"
@@ -126,11 +126,11 @@ export function VisaSearch() {
           <AnimatePresence>
             {open ? (
               <motion.div
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 6 }}
+                exit={{ opacity: 0, y: 4 }}
                 transition={{ duration: 0.15, ease: "easeOut" }}
-                className="absolute left-0 right-0 top-[calc(100%+10px)] z-30 overflow-hidden rounded-[var(--radius-lg)] border-[var(--sku-border)] bg-[var(--card-gradient)] shadow-sku-card wood-grain"
+                className="absolute left-0 right-0 top-[calc(100%+8px)] z-[100] max-h-[min(70vh,420px)] overflow-hidden rounded-[var(--radius-lg)] border border-black/10 bg-[rgba(253,248,240,0.98)] shadow-[0_12px_40px_rgba(28,47,74,0.18),0_4px_12px_rgba(92,61,30,0.12)] ring-1 ring-black/5 backdrop-blur-sm wood-grain"
                 role="listbox"
                 aria-label="Country suggestions"
               >
@@ -171,30 +171,29 @@ export function VisaSearch() {
                     ))}
                   </ul>
                 ) : (
-                  <div className="px-5 py-5">
-                    <div className="flex items-start gap-3">
-                      <span className="mt-0.5 inline-flex h-10 w-10 items-center justify-center rounded-md border border-black/10 bg-[rgba(253,248,240,0.85)] shadow-sku-raised">
-                        <Search
-                          className="h-5 w-5 text-accent-gold"
-                          aria-hidden
-                        />
+                  <div className="px-4 py-4 sm:px-5 sm:py-5">
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
+                      <span className="mx-auto inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-black/10 bg-[rgba(255,255,255,0.65)] shadow-sku-raised sm:mx-0 sm:mt-0.5">
+                        <Search className="h-5 w-5 text-accent-gold" aria-hidden />
                       </span>
-                      <div>
-                        <div className="font-display text-sm text-accent-navy">
+                      <div className="min-w-0 flex-1 text-center sm:text-left">
+                        <p className="font-display text-base font-semibold leading-snug text-accent-navy">
                           No results found
-                        </div>
-                        <div className="mt-1 font-body text-sm text-text-secondary">
-                          Contact us — we handle visas for 90+ countries.
-                        </div>
-                        <div className="mt-3">
+                        </p>
+                        <p className="mt-1.5 font-body text-sm leading-relaxed text-text-secondary text-pretty">
+                          We don&apos;t list that destination yet — we still help with 90+ countries.
+                        </p>
+                        <div className="mt-4">
                           <Link
                             href="#contact"
                             aria-label="Contact VisaHouse for this country"
-                            className="font-body text-sm font-semibold text-accent-burgundy hover:underline underline-offset-4"
+                            className="inline-flex items-center justify-center rounded-lg border border-black/10 bg-[rgba(255,255,255,0.7)] px-4 py-2.5 font-body text-sm font-semibold text-accent-burgundy shadow-sku-raised transition-colors hover:bg-[rgba(255,255,255,0.95)] hover:underline hover:underline-offset-4 sm:inline-flex"
                             onClick={() => setOpen(false)}
                           >
-                            Contact us for this country{" "}
-                            <span aria-hidden>→</span>
+                            Contact us about this country
+                            <span aria-hidden className="ml-1">
+                              →
+                            </span>
                           </Link>
                         </div>
                       </div>
