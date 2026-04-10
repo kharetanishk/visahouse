@@ -171,6 +171,15 @@ img.emoji {
   }
 }
 
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .stamp-sway {
   animation: stamp-sway 4s ease-in-out infinite;
 }
