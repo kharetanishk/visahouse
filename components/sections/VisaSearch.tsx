@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { CTAButton } from "@/components/ui/CTAButton";
 import { getAllCountriesForSearch } from "@/lib/data/visaDocuments";
 import { useTransitionContext } from "@/lib/context/TransitionContext";
+import { useRouter } from "next/navigation";
 
 type SearchItem = {
   key: string;
@@ -19,6 +20,7 @@ type SearchItem = {
 
 export function VisaSearch() {
   const { triggerTakeoff } = useTransitionContext();
+  const router = useRouter();
 
   const [query, setQuery] = React.useState("");
   const [open, setOpen] = React.useState(false);
@@ -36,6 +38,13 @@ export function VisaSearch() {
       })
       .slice(0, 8);
   }, [all, q]);
+
+  // Prefetch the top result as soon as it appears in the dropdown.
+  React.useEffect(() => {
+    if (results.length > 0) {
+      router.prefetch(`/visa/${results[0].key}`);
+    }
+  }, [results, router]);
 
   React.useEffect(() => {
     if (!q) {
@@ -142,7 +151,10 @@ export function VisaSearch() {
                           type="button"
                           aria-label={`Select ${r.name}`}
                           onClick={() => select(r)}
-                          onMouseEnter={() => setActiveIndex(idx)}
+                          onMouseEnter={() => {
+                            setActiveIndex(idx);
+                            router.prefetch(`/visa/${r.key}`);
+                          }}
                           className={cn(
                             "flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition-colors",
                             idx === activeIndex

@@ -39,6 +39,14 @@ export function TakeoffTransition({
   const [mounted, setMounted] = React.useState(false);
   const containerRef = React.useRef<HTMLDivElement>(null);
   const doneRef = React.useRef(false);
+  // Tracks whether navigation has been triggered so finish() can fire it as a fallback.
+  const navigatedRef = React.useRef(false);
+
+  const navigate = React.useCallback(() => {
+    if (navigatedRef.current) return;
+    navigatedRef.current = true;
+    onNavigationReady(countryKey);
+  }, [onNavigationReady, countryKey]);
 
   React.useEffect(() => {
     setMounted(true);
@@ -47,9 +55,11 @@ export function TakeoffTransition({
   const finish = React.useCallback(() => {
     if (doneRef.current) return;
     doneRef.current = true;
+    // Safety net: if animation bailed before navigation, navigate now.
+    navigate();
     document.body.style.overflow = "";
     onComplete();
-  }, [onComplete]);
+  }, [navigate, onComplete]);
 
   React.useEffect(() => {
     if (!mounted) return;
@@ -57,10 +67,16 @@ export function TakeoffTransition({
     document.body.style.overflow = "hidden";
     let cancelled = false;
 
+    // Safety timeout — if animation hangs for any reason, navigate anyway.
+    const safetyTimer = window.setTimeout(() => {
+      navigate();
+      finish();
+    }, 3500);
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         cancelled = true;
-        onNavigationReady(countryKey);
+        navigate();
         finish();
       }
     };
@@ -177,7 +193,7 @@ export function TakeoffTransition({
         if (cancelled) return;
 
         // ─── SCREEN IS FULLY COVERED — navigate ────────────────────
-        onNavigationReady(countryKey);
+        navigate();
         await pause(120);
 
         // ─── PHASE 3: Clouds part (reveal new page) ────────────────
@@ -226,6 +242,7 @@ export function TakeoffTransition({
 
     return () => {
       cancelled = true;
+      clearTimeout(safetyTimer);
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };

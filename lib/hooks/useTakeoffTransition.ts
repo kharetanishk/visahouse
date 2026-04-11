@@ -14,6 +14,9 @@ export function useTakeoffTransition() {
     (countryKey: string) => {
       if (state === "running") return; // prevent double-trigger
 
+      // Prefetch immediately so the page bundle is ready before animation ends.
+      router.prefetch(`/visa/${countryKey}`);
+
       const prefersReducedMotion =
         typeof window !== "undefined" &&
         window.matchMedia("(prefers-reduced-motion: reduce)").matches;
