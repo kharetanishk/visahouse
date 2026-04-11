@@ -28,6 +28,21 @@ export function generateMetadata({ params }: Props): Metadata {
       title: `${title} | VisaHouse`,
       description,
       url: `${siteConfig.url}/visa/${params.countryKey}`,
+      images: [
+        {
+          url: "/images/visahousesocial.png",
+          width: 1200,
+          height: 630,
+          alt: `${country.countryName} Visa — VisaHouse`,
+          type: "image/png",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | VisaHouse`,
+      description,
+      images: ["/images/visahousesocial.png"],
     },
   };
 }

@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 
 export const siteConfig = {
   name: "VisaHouse",
-  url: "https://visahouse.co.in",
+  url: "https://www.visahouse.co.in",
   tagline: "Your Visa. Our Responsibility.",
   description:
     "VisaHouse is Mumbai's leading visa consultancy with 10+ years of experience, 99% approval rate, and expertise across 90+ countries. Tourist, Business, Student & Work visas handled end-to-end.",
   phone: "+91 77150 24527",
-  whatsapp: "+91 77150 24527",
+  whatsapp: "+91 93264 21740",
   email: "visahouse.co.in@gmail.com",
   address:
     "MASTER MIND 4, Office No A321, CTS No 1627, Royal Palm, Goregaon East, Mumbai – 400065",
@@ -15,7 +15,7 @@ export const siteConfig = {
 } as const;
 
 /** WhatsApp wa.me link — digits only after wa.me/ */
-export const whatsappChatUrl = `https://wa.me/${siteConfig.phone.replace(/\D/g, "")}`;
+export const whatsappChatUrl = `https://wa.me/${siteConfig.whatsapp.replace(/\D/g, "")}`;
 
 export const siteMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -65,10 +65,11 @@ export const siteMetadata: Metadata = {
       "India's trusted visa consultancy. 10+ years, 25,000+ clients, 99% success rate. We handle visas for 90+ countries.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/images/visahousesocial.png",
         width: 1200,
         height: 630,
         alt: "VisaHouse Visa Consultancy Mumbai",
+        type: "image/png",
       },
     ],
   },
@@ -76,7 +77,7 @@ export const siteMetadata: Metadata = {
     card: "summary_large_image",
     title: "VisaHouse — Trusted Visa Consultancy",
     description: "Mumbai's leading visa consultancy. 25,000+ visas. 99% success rate.",
-    images: ["/og-image.jpg"],
+    images: ["/images/visahousesocial.png"],
   },
   alternates: {
     canonical: siteConfig.url,

@@ -27,7 +27,7 @@ export const faqs: FAQItem[] = [
   {
     question: "How much does VisaHouse charge for its services?",
     answer:
-      "Our service fees start from ₹1,999 depending on the visa type and country. Embassy/consulate fees are separate and paid directly to the respective authority. We maintain complete fee transparency — no hidden charges ever.",
+      "Our service fees start from ₹1,499 depending on the visa type and country. Embassy/consulate fees are separate and paid directly to the respective authority. We maintain complete fee transparency — no hidden charges ever.",
   },
   {
     question: "Can you help with express or urgent visa processing?",
@@ -45,4 +45,3 @@ export const faqs: FAQItem[] = [
       "Absolutely. All documents submitted to us are handled with strict confidentiality. We use secure encrypted channels for document transfer and never share your data with any third party.",
   },
 ];
-
