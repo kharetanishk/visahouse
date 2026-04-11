@@ -1,0 +1,20 @@
+name: Sync Client Fork
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync fork with upstream
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.CLIENT_GITHUB_TOKEN }}
+          script: |
+            await github.rest.repos.mergeUpstream({
+              owner: 'visahousecoin-rgb',
+              repo: 'visahouse',
+              branch: 'main'
+            })
