@@ -124,8 +124,8 @@ const UNIVERSAL_3: DocumentItem[] = [
     iconColor: "text-blue-600",
     iconBg: "bg-blue-50",
     referenceImage: {
-      wrongExamples: ["/references/passport-front-wrong-flash.jpg"],
-      correctExample: "/references/passport-front-correct.jpg",
+      wrongExamples: [],
+      correctExample: "/references/passport-front-correct.png",
       rules: [
         "Full colour scan — not black and white",
         "No camera flash, glare, or shadows",
@@ -145,8 +145,8 @@ const UNIVERSAL_3: DocumentItem[] = [
     iconColor: "text-blue-500",
     iconBg: "bg-blue-50",
     referenceImage: {
-      wrongExamples: ["/references/passport-back-wrong.jpg"],
-      correctExample: "/references/passport-back-correct.jpg",
+      wrongExamples: [],
+      correctExample: "/references/passport-back-correct.png",
       rules: [
         "Include observation/endorsement page if any annotations are present",
         "Full colour scan — clear and legible",
@@ -169,8 +169,8 @@ const UNIVERSAL_3: DocumentItem[] = [
       "Taken within the last 3–6 months",
     ],
     referenceImage: {
-      wrongExamples: ["/references/photo-wrong-shadow.jpg"],
-      correctExample: "/references/photo-correct.jpg",
+      wrongExamples: [],
+      correctExample: "/references/photo-correct.png",
       rules: [
         "Plain white background only",
         "No shadows on face or background",
@@ -380,12 +380,8 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
         iconColor: "text-purple-600",
         iconBg: "bg-purple-50",
         referenceImage: {
-          wrongExamples: [
-            "/references/photo-wrong-shadow.jpg",
-            "/references/photo-wrong-coloured-bg.jpg",
-            "/references/photo-wrong-glasses.jpg",
-          ],
-          correctExample: "/references/photo-correct.jpg",
+          wrongExamples: [],
+          correctExample: "/references/photo-correct.png",
           rules: [
             "Plain white or off-white background only",
             "Face must be clearly visible, front-facing, neutral expression",

@@ -91,7 +91,7 @@ export function ReferenceModal({
             role="dialog"
             aria-modal="true"
             aria-label={`${doc.title} reference modal`}
-            className="relative w-full max-w-[800px] overflow-hidden rounded-[var(--radius-xl)] border-[var(--sku-border-strong)] bg-[var(--card-gradient)] shadow-[0_24px_60px_rgba(92,61,30,0.35)] wood-grain"
+            className="relative w-full max-w-[800px] max-h-[90vh] overflow-y-auto rounded-[var(--radius-xl)] border-[var(--sku-border-strong)] bg-[var(--card-gradient)] shadow-[0_24px_60px_rgba(92,61,30,0.35)] wood-grain"
             initial={{ opacity: 0, scale: 0.95, y: 6 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.98, y: 4 }}
@@ -129,27 +129,25 @@ export function ReferenceModal({
               </button>
             </div>
 
-            <div className="grid gap-4 p-6 lg:grid-cols-2">
-              <div className="rounded-xl border border-black/10 bg-[#FFF0F0] p-4 shadow-sku-pressed">
-                <div className="font-display text-sm text-[#B42318]">
-                  ✗ Incorrect — Avoid These
-                </div>
-                <div className="mt-3 grid gap-3">
-                  {wrong.length ? (
-                    wrong.map((src) => (
+            <div className={cn("grid gap-4 p-6", wrong.length ? "lg:grid-cols-2" : "")}>
+              {wrong.length > 0 && (
+                <div className="rounded-xl border border-black/10 bg-[#FFF0F0] p-4 shadow-sku-pressed">
+                  <div className="font-display text-sm text-[#B42318]">
+                    ✗ Incorrect — Avoid These
+                  </div>
+                  <div className="mt-3 grid gap-3">
+                    {wrong.map((src) => (
                       <ReferenceImage key={src} src={src} badge="✗" badgeStyle="bg-[#DC2626]" />
-                    ))
-                  ) : (
-                    <MissingImage path="/public/references/..." />
-                  )}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div className="rounded-xl border border-black/10 bg-[#F0FFF5] p-4 shadow-sku-pressed">
                 <div className="font-display text-sm text-[#15803D]">✓ Correct Format</div>
                 <div className="mt-3">
                   {correct ? (
-                    <ReferenceImage src={correct} badge="✓" badgeStyle="bg-[#16A34A]" tall />
+                    <ReferenceImage src={correct} badge="✓" badgeStyle="bg-[#16A34A]" />
                   ) : (
                     <MissingImage path="/public/references/..." />
                   )}
@@ -189,12 +187,10 @@ function ReferenceImage({
   src,
   badge,
   badgeStyle,
-  tall,
 }: {
   src: string;
   badge: string;
   badgeStyle: string;
-  tall?: boolean;
 }) {
   const [imgError, setImgError] = React.useState(false);
 
@@ -203,13 +199,14 @@ function ReferenceImage({
   }
 
   return (
-    <div className={cn("relative overflow-hidden rounded-lg border border-black/10 bg-white/60", tall ? "h-[260px]" : "h-[140px]")}>
+    <div className="relative rounded-lg border border-black/10 bg-white/60 overflow-hidden">
       <Image
         src={src}
         alt={`Reference example ${src}`}
-        fill
+        width={800}
+        height={600}
         sizes="(max-width: 768px) 90vw, 360px"
-        className="object-cover"
+        className="w-full h-auto object-contain"
         onError={() => setImgError(true)}
       />
       <span
