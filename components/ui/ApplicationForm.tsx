@@ -6,7 +6,11 @@ import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { useDropzone } from "react-dropzone";
 import { CheckCircle2, UploadCloud, X } from "lucide-react";
-import { ALL_COUNTRY_OPTIONS, countryFilterOption, VISA_COUNTRIES } from "@/lib/data/countries";
+import {
+  ALL_COUNTRY_OPTIONS,
+  countryFilterOption,
+  VISA_COUNTRIES,
+} from "@/lib/data/countries";
 import type { ApplicationFormData } from "@/lib/types/application";
 import { CountryFlag } from "@/components/ui/CountryFlag";
 
@@ -37,9 +41,14 @@ type CountryOption = {
   };
 };
 
-type DestinationOption = CountryOption | { label: string; value: string; __isNew__: true };
+type DestinationOption =
+  | CountryOption
+  | { label: string; value: string; __isNew__: true };
 
-type FocusableElement = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+type FocusableElement =
+  | HTMLInputElement
+  | HTMLTextAreaElement
+  | HTMLSelectElement;
 
 const MAX_FILE_SIZE = 15 * 1024 * 1024;
 const todayString = () => new Date().toISOString().split("T")[0];
@@ -48,7 +57,6 @@ const visaTypeOptions: ApplicationFormData["visaType"][] = [
   "Tourist",
   "Business",
   "Student",
-  "Work Permit",
   "Transit",
   "Immigration",
 ];
@@ -71,7 +79,9 @@ const selectStyles = {
   control: (base: any, state: any) => ({
     ...base,
     background: "var(--cream-white)",
-    border: state.isFocused ? "1.5px solid var(--accent-gold)" : "1px solid rgba(201,169,110,0.6)",
+    border: state.isFocused
+      ? "1.5px solid var(--accent-gold)"
+      : "1px solid rgba(201,169,110,0.6)",
     boxShadow: state.isFocused
       ? "0 0 0 3px rgba(201,151,58,0.2), inset 0 2px 4px rgba(92,61,30,0.1)"
       : "inset 0 2px 4px rgba(92,61,30,0.1)",
@@ -126,7 +136,11 @@ const labelStyle: React.CSSProperties = {
   fontSize: "14px",
   color: "var(--text-primary)",
 };
-const errorStyle: React.CSSProperties = { color: "#dc2626", fontSize: "12px", marginTop: "4px" };
+const errorStyle: React.CSSProperties = {
+  color: "#dc2626",
+  fontSize: "12px",
+  marginTop: "4px",
+};
 
 const applyFocusStyles = (e: React.FocusEvent<FocusableElement>) => {
   e.currentTarget.style.border = "1.5px solid var(--accent-gold)";
@@ -146,7 +160,7 @@ const findCountryByNameOrAlias = (query?: string) => {
     (country) =>
       country.name.toLowerCase() === needle ||
       country.code.toLowerCase() === needle ||
-      country.searchAliases?.some((alias) => alias.toLowerCase() === needle)
+      country.searchAliases?.some((alias) => alias.toLowerCase() === needle),
   );
 };
 
@@ -156,7 +170,8 @@ const getSizeBarColor = (sizeInMB: number) => {
   return "linear-gradient(90deg,#22c55e,#16a34a)";
 };
 
-const getSizeBarWidth = (sizeInMB: number) => `${Math.min((sizeInMB / 15) * 100, 100)}%`;
+const getSizeBarWidth = (sizeInMB: number) =>
+  `${Math.min((sizeInMB / 15) * 100, 100)}%`;
 
 export function ApplicationForm({
   title = "Start Your Application",
@@ -164,10 +179,13 @@ export function ApplicationForm({
   defaultDestination,
   compact = false,
 }: ApplicationFormProps) {
-  const defaultPassport = React.useMemo(() => findCountryByNameOrAlias("India"), []);
+  const defaultPassport = React.useMemo(
+    () => findCountryByNameOrAlias("India"),
+    [],
+  );
   const defaultDestinationCountry = React.useMemo(
     () => findCountryByNameOrAlias(defaultDestination),
-    [defaultDestination]
+    [defaultDestination],
   );
 
   const [isSuccess, setIsSuccess] = React.useState(false);
@@ -208,8 +226,11 @@ export function ApplicationForm({
   const phoneNumber = watch("phoneNumber");
 
   const validDocs = React.useMemo(
-    () => uploadedFiles.filter((uploaded) => uploaded.isValid).map((uploaded) => uploaded.file),
-    [uploadedFiles]
+    () =>
+      uploadedFiles
+        .filter((uploaded) => uploaded.isValid)
+        .map((uploaded) => uploaded.file),
+    [uploadedFiles],
   );
 
   React.useEffect(() => {
@@ -268,11 +289,16 @@ export function ApplicationForm({
     const safeAdults = Math.max(1, adults);
     setValue("totalTravellers", clamped, { shouldValidate: true });
     setValue("numberOfAdults", safeAdults, { shouldValidate: true });
-    setValue("numberOfChildren", clamped - safeAdults, { shouldValidate: true });
+    setValue("numberOfChildren", clamped - safeAdults, {
+      shouldValidate: true,
+    });
   };
 
   const updateAdults = (nextAdults: number) => {
-    const clamped = Math.max(1, Math.min(nextAdults, getValues("totalTravellers")));
+    const clamped = Math.max(
+      1,
+      Math.min(nextAdults, getValues("totalTravellers")),
+    );
     const total = getValues("totalTravellers");
     setValue("numberOfAdults", clamped, { shouldValidate: true });
     setValue("numberOfChildren", total - clamped, { shouldValidate: true });
@@ -281,14 +307,18 @@ export function ApplicationForm({
   const onInvalid = (formErrors: FieldErrors<ApplicationFormData>) => {
     const firstKey = Object.keys(formErrors)[0];
     if (!firstKey) return;
-    document.getElementById(`${firstKey}-field`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+    document
+      .getElementById(`${firstKey}-field`)
+      ?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
   const onSubmit = async (data: ApplicationFormData) => {
     setIsSubmitting(true);
     setSubmitError("");
     if (data.numberOfAdults + data.numberOfChildren !== data.totalTravellers) {
-      setSubmitError("Travellers count mismatch. Please check adults and children.");
+      setSubmitError(
+        "Travellers count mismatch. Please check adults and children.",
+      );
       setIsSubmitting(false);
       return;
     }
@@ -298,7 +328,10 @@ export function ApplicationForm({
         if (key !== "documents") formData.append(key, String(value));
       });
       data.documents?.forEach((file) => formData.append("documents", file));
-      const response = await fetch("/api/apply", { method: "POST", body: formData });
+      const response = await fetch("/api/apply", {
+        method: "POST",
+        body: formData,
+      });
       if (!response.ok) {
         const err = await response.json();
         throw new Error(err.error || "Submission failed");
@@ -345,9 +378,12 @@ export function ApplicationForm({
             <CheckCircle2 className="h-6 w-6" />
           </span>
           <div>
-            <h3 className="font-display text-2xl text-accent-navy">Application Submitted! 🎉</h3>
+            <h3 className="font-display text-2xl text-accent-navy">
+              Application Submitted! 🎉
+            </h3>
             <p className="mt-2 font-body text-sm text-text-secondary">
-              Our visa expert will contact you within 24 hours on +91{phoneNumber}.
+              Our visa expert will contact you within 24 hours on +91
+              {phoneNumber}.
             </p>
             <button
               type="button"
@@ -363,22 +399,38 @@ export function ApplicationForm({
   }
 
   return (
-    <div className="sku-surface wood-grain" style={{ padding: compact ? "16px" : "24px 28px" }}>
+    <div
+      className="sku-surface wood-grain"
+      style={{ padding: compact ? "16px" : "24px 28px" }}
+    >
       <div style={{ marginBottom: compact ? "16px" : "24px" }}>
-        <h3 className="font-display text-accent-navy" style={{ fontSize: compact ? "22px" : "28px" }}>
+        <h3
+          className="font-display text-accent-navy"
+          style={{ fontSize: compact ? "22px" : "28px" }}
+        >
           {title}
         </h3>
-        <p className="font-body text-text-secondary" style={{ marginTop: "4px", fontSize: compact ? "14px" : "15px" }}>
+        <p
+          className="font-body text-text-secondary"
+          style={{ marginTop: "4px", fontSize: compact ? "14px" : "15px" }}
+        >
           {subtitle}
         </p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit, onInvalid)}>
-        <FormField id="name-field" label="Full Name" error={errors.name?.message}>
+        <FormField
+          id="name-field"
+          label="Full Name"
+          error={errors.name?.message}
+        >
           <input
             {...register("name", {
               required: "Full name is required",
-              minLength: { value: 2, message: "Name must be at least 2 characters" },
+              minLength: {
+                value: 2,
+                message: "Name must be at least 2 characters",
+              },
             })}
             placeholder="Your full name"
             style={inputStyle}
@@ -387,12 +439,19 @@ export function ApplicationForm({
           />
         </FormField>
 
-        <FormField id="email-field" label="Email Address" error={errors.email?.message}>
+        <FormField
+          id="email-field"
+          label="Email Address"
+          error={errors.email?.message}
+        >
           <input
             type="email"
             {...register("email", {
               required: "Email is required",
-              pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Enter a valid email address" },
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Enter a valid email address",
+              },
             })}
             placeholder="you@example.com"
             style={inputStyle}
@@ -401,7 +460,11 @@ export function ApplicationForm({
           />
         </FormField>
 
-        <FormField id="phoneNumber-field" label="Phone Number" error={errors.phoneNumber?.message}>
+        <FormField
+          id="phoneNumber-field"
+          label="Phone Number"
+          error={errors.phoneNumber?.message}
+        >
           <div style={{ display: "flex" }}>
             <span
               style={{
@@ -424,13 +487,20 @@ export function ApplicationForm({
               maxLength={10}
               {...register("phoneNumber", {
                 required: "Phone number is required",
-                pattern: { value: /^\d{10}$/, message: "Phone number must be exactly 10 digits" },
+                pattern: {
+                  value: /^\d{10}$/,
+                  message: "Phone number must be exactly 10 digits",
+                },
               })}
               onInput={(e) => {
                 const target = e.currentTarget;
                 target.value = target.value.replace(/\D/g, "").slice(0, 10);
               }}
-              style={{ ...inputStyle, borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+              style={{
+                ...inputStyle,
+                borderTopLeftRadius: 0,
+                borderBottomLeftRadius: 0,
+              }}
               onFocus={applyFocusStyles}
               onBlur={clearFocusStyles}
               placeholder="7715024527"
@@ -438,7 +508,11 @@ export function ApplicationForm({
           </div>
         </FormField>
 
-        <FormField id="passportNationality-field" label="Passport Nationality" error={errors.passportNationality?.message}>
+        <FormField
+          id="passportNationality-field"
+          label="Passport Nationality"
+          error={errors.passportNationality?.message}
+        >
           <Controller
             control={control}
             name="passportNationality"
@@ -447,17 +521,38 @@ export function ApplicationForm({
               <Select
                 styles={selectStyles}
                 options={ALL_COUNTRY_OPTIONS}
-                value={ALL_COUNTRY_OPTIONS.find((option) => option.data.name === field.value) ?? null}
-                onChange={(option) => field.onChange((option as CountryOption | null)?.data.name ?? "")}
+                value={
+                  ALL_COUNTRY_OPTIONS.find(
+                    (option) => option.data.name === field.value,
+                  ) ?? null
+                }
+                onChange={(option) =>
+                  field.onChange(
+                    (option as CountryOption | null)?.data.name ?? "",
+                  )
+                }
                 placeholder="Select nationality"
                 isSearchable
                 filterOption={(option, inputValue) =>
                   countryFilterOption({ data: option.data.data }, inputValue)
                 }
                 formatOptionLabel={(option: CountryOption) => (
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px 0" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      padding: "2px 0",
+                    }}
+                  >
                     <CountryFlag flag={option.data.flag} size={20} />
-                    <span style={{ fontSize: "14px", color: "var(--text-primary)", fontFamily: "var(--font-body)" }}>
+                    <span
+                      style={{
+                        fontSize: "14px",
+                        color: "var(--text-primary)",
+                        fontFamily: "var(--font-body)",
+                      }}
+                    >
                       {option.data.name}
                     </span>
                   </div>
@@ -467,18 +562,24 @@ export function ApplicationForm({
           />
         </FormField>
 
-        <FormField id="destinationCountry-field" label="Destination Country" error={errors.destinationCountry?.message}>
+        <FormField
+          id="destinationCountry-field"
+          label="Destination Country"
+          error={errors.destinationCountry?.message}
+        >
           <Controller
             control={control}
             name="destinationCountry"
             rules={{ required: "Destination country is required" }}
             render={({ field }) => {
               const destinationValue: DestinationOption | null = field.value
-                ? ALL_COUNTRY_OPTIONS.find((option) => option.data.name === field.value) ?? {
+                ? (ALL_COUNTRY_OPTIONS.find(
+                    (option) => option.data.name === field.value,
+                  ) ?? {
                     label: field.value,
                     value: field.value,
                     __isNew__: true,
-                  }
+                  })
                 : null;
 
               return (
@@ -501,35 +602,68 @@ export function ApplicationForm({
                   isSearchable
                   isClearable
                   createOptionPosition="first"
-                  formatCreateLabel={(inputValue) => `Use "${inputValue.trim()}"`}
+                  formatCreateLabel={(inputValue) =>
+                    `Use "${inputValue.trim()}"`
+                  }
                   isValidNewOption={(inputValue) => {
                     const q = inputValue.trim();
                     if (!q) return false;
-                    return !ALL_COUNTRY_OPTIONS.some((o) => o.data.name.toLowerCase() === q.toLowerCase());
+                    return !ALL_COUNTRY_OPTIONS.some(
+                      (o) => o.data.name.toLowerCase() === q.toLowerCase(),
+                    );
                   }}
                   filterOption={(option, inputValue) => {
                     const row = option.data;
-                    if (row && "__isNew__" in row && row.__isNew__) return false;
+                    if (row && "__isNew__" in row && row.__isNew__)
+                      return false;
                     if (row && "data" in row && row.data) {
-                      return countryFilterOption({ data: row.data }, inputValue);
+                      return countryFilterOption(
+                        { data: row.data },
+                        inputValue,
+                      );
                     }
                     return true;
                   }}
-                  noOptionsMessage={() => "Pick a match or type any destination and choose Use \"…\" above"}
+                  noOptionsMessage={() =>
+                    'Pick a match or type any destination and choose Use "…" above'
+                  }
                   formatOptionLabel={(option) => {
-                    if ("data" in option && option.data && "flag" in option.data) {
+                    if (
+                      "data" in option &&
+                      option.data &&
+                      "flag" in option.data
+                    ) {
                       const co = option as CountryOption;
                       return (
-                        <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "2px 0" }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "8px",
+                            padding: "2px 0",
+                          }}
+                        >
                           <CountryFlag flag={co.data.flag} size={20} />
-                          <span style={{ fontSize: "14px", color: "var(--text-primary)", fontFamily: "var(--font-body)" }}>
+                          <span
+                            style={{
+                              fontSize: "14px",
+                              color: "var(--text-primary)",
+                              fontFamily: "var(--font-body)",
+                            }}
+                          >
                             {co.data.name}
                           </span>
                         </div>
                       );
                     }
                     return (
-                      <span style={{ fontSize: "14px", color: "var(--text-primary)", fontFamily: "var(--font-body)" }}>
+                      <span
+                        style={{
+                          fontSize: "14px",
+                          color: "var(--text-primary)",
+                          fontFamily: "var(--font-body)",
+                        }}
+                      >
                         {option.label}
                       </span>
                     );
@@ -540,13 +674,20 @@ export function ApplicationForm({
           />
         </FormField>
 
-        <FormField id="preferredTravelDate-field" label="Preferred Travel Date" error={errors.preferredTravelDate?.message}>
+        <FormField
+          id="preferredTravelDate-field"
+          label="Preferred Travel Date"
+          error={errors.preferredTravelDate?.message}
+        >
           <input
             type="date"
             min={todayString()}
             {...register("preferredTravelDate", {
               required: "Preferred travel date is required",
-              validate: (value) => (value >= todayString() ? true : "Travel date cannot be in the past"),
+              validate: (value) =>
+                value >= todayString()
+                  ? true
+                  : "Travel date cannot be in the past",
             })}
             style={inputStyle}
             onFocus={applyFocusStyles}
@@ -554,7 +695,11 @@ export function ApplicationForm({
           />
         </FormField>
 
-        <FormField id="numberOfDaysOfStay-field" label="Number of Days of Stay" error={errors.numberOfDaysOfStay?.message}>
+        <FormField
+          id="numberOfDaysOfStay-field"
+          label="Number of Days of Stay"
+          error={errors.numberOfDaysOfStay?.message}
+        >
           <input
             type="number"
             min={1}
@@ -576,7 +721,11 @@ export function ApplicationForm({
           />
         </FormField>
 
-        <FormField id="visaType-field" label="Visa Type" error={errors.visaType?.message}>
+        <FormField
+          id="visaType-field"
+          label="Visa Type"
+          error={errors.visaType?.message}
+        >
           <select
             {...register("visaType", { required: "Visa type is required" })}
             style={inputStyle}
@@ -591,8 +740,16 @@ export function ApplicationForm({
           </select>
         </FormField>
 
-        <FormField id="totalTravellers-field" label="Number of Travellers (Total)" error={errors.totalTravellers?.message}>
-          <Stepper value={totalTravellers} onMinus={() => updateTravellers(totalTravellers - 1)} onPlus={() => updateTravellers(totalTravellers + 1)} />
+        <FormField
+          id="totalTravellers-field"
+          label="Number of Travellers (Total)"
+          error={errors.totalTravellers?.message}
+        >
+          <Stepper
+            value={totalTravellers}
+            onMinus={() => updateTravellers(totalTravellers - 1)}
+            onPlus={() => updateTravellers(totalTravellers + 1)}
+          />
           <input
             type="hidden"
             {...register("totalTravellers", {
@@ -603,38 +760,59 @@ export function ApplicationForm({
           />
         </FormField>
 
-        <FormField id="numberOfAdults-field" label="Number of Adults (18+)" error={errors.numberOfAdults?.message}>
-          <Stepper value={numberOfAdults} onMinus={() => updateAdults(numberOfAdults - 1)} onPlus={() => updateAdults(numberOfAdults + 1)} />
+        <FormField
+          id="numberOfAdults-field"
+          label="Number of Adults (18+)"
+          error={errors.numberOfAdults?.message}
+        >
+          <Stepper
+            value={numberOfAdults}
+            onMinus={() => updateAdults(numberOfAdults - 1)}
+            onPlus={() => updateAdults(numberOfAdults + 1)}
+          />
           <input
             type="hidden"
             {...register("numberOfAdults", {
               valueAsNumber: true,
               min: { value: 1, message: "At least 1 adult is required" },
-              validate: (value) => value <= getValues("totalTravellers") || "Adults cannot exceed total travellers",
+              validate: (value) =>
+                value <= getValues("totalTravellers") ||
+                "Adults cannot exceed total travellers",
             })}
           />
         </FormField>
 
-        <FormField id="numberOfChildren-field" label="Children (auto-calculated)" error={errors.numberOfChildren?.message}>
+        <FormField
+          id="numberOfChildren-field"
+          label="Children (auto-calculated)"
+          error={errors.numberOfChildren?.message}
+        >
           <input
             readOnly
             {...register("numberOfChildren", {
               valueAsNumber: true,
               validate: (value) =>
-                value === getValues("totalTravellers") - getValues("numberOfAdults")
-                || "Children count must match total travellers - adults",
+                value ===
+                  getValues("totalTravellers") - getValues("numberOfAdults") ||
+                "Children count must match total travellers - adults",
             })}
             style={{ ...inputStyle, background: "#f3f4f6", color: "#6b7280" }}
           />
         </FormField>
 
-        <FormField id="documents-field" label="Document Upload Zone" error={undefined}>
+        <FormField
+          id="documents-field"
+          label="Document Upload Zone"
+          error={undefined}
+        >
           {uploadedFiles.length === 0 ? (
             <div
               {...getRootProps()}
               style={{
                 border: `2px dashed ${isDragActive ? "var(--accent-gold)" : "var(--wood-dark)"}`,
-                background: isDragActive ? "rgba(201,151,58,0.06)" : "var(--cream-white)",
+                background: isDragActive
+                  ? "rgba(201,151,58,0.06)"
+                  : "var(--cream-white)",
                 borderRadius: "16px",
                 padding: "40px 24px",
                 textAlign: "center",
@@ -644,15 +822,36 @@ export function ApplicationForm({
               }}
             >
               <input {...getInputProps()} />
-              <UploadCloud size={48} style={{ margin: "0 auto 12px", color: "var(--text-primary)" }} />
-              <p style={{ fontSize: "16px", color: "var(--text-primary)", margin: 0 }}>
+              <UploadCloud
+                size={48}
+                style={{ margin: "0 auto 12px", color: "var(--text-primary)" }}
+              />
+              <p
+                style={{
+                  fontSize: "16px",
+                  color: "var(--text-primary)",
+                  margin: 0,
+                }}
+              >
                 Drag & drop your documents here
               </p>
-              <p style={{ fontSize: "16px", color: "var(--text-primary)", margin: "2px 0 0" }}>
+              <p
+                style={{
+                  fontSize: "16px",
+                  color: "var(--text-primary)",
+                  margin: "2px 0 0",
+                }}
+              >
                 or click to browse files
               </p>
-              <p style={{ fontSize: "13px", color: "var(--text-muted)", margin: "10px 0 0" }}>
-                PDF, JPG, PNG  •  Max 15MB per file
+              <p
+                style={{
+                  fontSize: "13px",
+                  color: "var(--text-muted)",
+                  margin: "10px 0 0",
+                }}
+              >
+                PDF, JPG, PNG • Max 15MB per file
               </p>
             </div>
           ) : (
@@ -661,7 +860,9 @@ export function ApplicationForm({
                 {...getRootProps()}
                 style={{
                   border: `2px dashed ${isDragActive ? "var(--accent-gold)" : "var(--wood-dark)"}`,
-                  background: isDragActive ? "rgba(201,151,58,0.06)" : "var(--cream-white)",
+                  background: isDragActive
+                    ? "rgba(201,151,58,0.06)"
+                    : "var(--cream-white)",
                   borderRadius: "12px",
                   padding: "14px 16px",
                   textAlign: "center",
@@ -671,18 +872,33 @@ export function ApplicationForm({
                 }}
               >
                 <input {...getInputProps()} />
-                <p style={{ margin: 0, fontSize: "14px", color: "var(--text-primary)", fontWeight: 600 }}>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "14px",
+                    color: "var(--text-primary)",
+                    fontWeight: 600,
+                  }}
+                >
                   Add more documents
                 </p>
               </div>
 
-              <div style={{ display: "grid", gap: "12px", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+              <div
+                style={{
+                  display: "grid",
+                  gap: "12px",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+                }}
+              >
                 {uploadedFiles.map((uploaded) => (
                   <div
                     key={uploaded.id}
                     style={{
                       background: "var(--card-gradient)",
-                      border: uploaded.isValid ? "var(--sku-border)" : "2px solid #dc2626",
+                      border: uploaded.isValid
+                        ? "var(--sku-border)"
+                        : "2px solid #dc2626",
                       borderRadius: "12px",
                       boxShadow: "var(--sku-shadow-card)",
                       overflow: "hidden",
@@ -713,7 +929,16 @@ export function ApplicationForm({
                     </button>
 
                     {uploaded.preview ? (
-                      <img src={uploaded.preview} alt={uploaded.file.name} style={{ width: "100%", aspectRatio: "16 / 9", objectFit: "cover", display: "block" }} />
+                      <img
+                        src={uploaded.preview}
+                        alt={uploaded.file.name}
+                        style={{
+                          width: "100%",
+                          aspectRatio: "16 / 9",
+                          objectFit: "cover",
+                          display: "block",
+                        }}
+                      />
                     ) : (
                       <div
                         style={{
@@ -732,15 +957,53 @@ export function ApplicationForm({
                     )}
 
                     <div style={{ padding: "10px 12px" }}>
-                      <div style={{ fontSize: "13px", color: "var(--text-primary)", fontWeight: 700, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      <div
+                        style={{
+                          fontSize: "13px",
+                          color: "var(--text-primary)",
+                          fontWeight: 700,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
                         {uploaded.file.name}
                       </div>
-                      <div style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>{uploaded.sizeInMB} MB</div>
-                      <div style={{ height: "4px", borderRadius: "2px", background: "#e5e7eb", marginTop: "8px", overflow: "hidden" }}>
-                        <div style={{ height: "100%", width: getSizeBarWidth(uploaded.sizeInMB), background: getSizeBarColor(uploaded.sizeInMB) }} />
+                      <div
+                        style={{
+                          fontSize: "12px",
+                          color: "var(--text-muted)",
+                          marginTop: "2px",
+                        }}
+                      >
+                        {uploaded.sizeInMB} MB
+                      </div>
+                      <div
+                        style={{
+                          height: "4px",
+                          borderRadius: "2px",
+                          background: "#e5e7eb",
+                          marginTop: "8px",
+                          overflow: "hidden",
+                        }}
+                      >
+                        <div
+                          style={{
+                            height: "100%",
+                            width: getSizeBarWidth(uploaded.sizeInMB),
+                            background: getSizeBarColor(uploaded.sizeInMB),
+                          }}
+                        />
                       </div>
                       {!uploaded.isValid ? (
-                        <div style={{ marginTop: "8px", color: "#dc2626", fontSize: "12px", fontWeight: 600 }}>
+                        <div
+                          style={{
+                            marginTop: "8px",
+                            color: "#dc2626",
+                            fontSize: "12px",
+                            fontWeight: 600,
+                          }}
+                        >
                           File too large (max 15MB)
                         </div>
                       ) : null}
@@ -784,7 +1047,8 @@ export function ApplicationForm({
           onMouseDown={(e) => {
             if (!isSubmitting) {
               setButtonPressed(true);
-              (e.target as HTMLButtonElement).style.transform = "translateY(1px)";
+              (e.target as HTMLButtonElement).style.transform =
+                "translateY(1px)";
             }
           }}
           onMouseUp={(e) => {
@@ -794,9 +1058,30 @@ export function ApplicationForm({
           onMouseLeave={() => setButtonPressed(false)}
         >
           {isSubmitting ? (
-            <span style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" style={{ animation: "spin 1s linear infinite" }}>
-                <circle cx="12" cy="12" r="10" stroke="white" strokeWidth="3" fill="none" strokeDasharray="31.4" strokeDashoffset="10" />
+            <span
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "10px",
+              }}
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                style={{ animation: "spin 1s linear infinite" }}
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="white"
+                  strokeWidth="3"
+                  fill="none"
+                  strokeDasharray="31.4"
+                  strokeDashoffset="10"
+                />
               </svg>
               Sending Application...
             </span>

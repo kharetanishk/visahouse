@@ -6,13 +6,7 @@ export interface ApplicationFormData {
   destinationCountry: string;
   preferredTravelDate: string;
   numberOfDaysOfStay: string;
-  visaType:
-    | "Tourist"
-    | "Business"
-    | "Student"
-    | "Work Permit"
-    | "Transit"
-    | "Immigration";
+  visaType: "Tourist" | "Business" | "Student" | "Transit" | "Immigration";
   totalTravellers: number;
   numberOfAdults: number;
   numberOfChildren: number;

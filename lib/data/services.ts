@@ -24,12 +24,6 @@ export const services: ServiceItem[] = [
       "Pursue your education dreams internationally. We assist with student visa applications for top study destinations worldwide.",
   },
   {
-    icon: "🏗️",
-    title: "Work Permit",
-    description:
-      "Planning to work abroad? We guide you through work permit and employment visa processes for key countries.",
-  },
-  {
     icon: "🔄",
     title: "Transit Visa",
     description:
@@ -42,4 +36,3 @@ export const services: ServiceItem[] = [
       "Long-term relocation planning? We offer consultation for Permanent Residency and immigration pathways.",
   },
 ];
-

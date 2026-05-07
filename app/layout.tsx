@@ -53,18 +53,17 @@ function buildStructuredData() {
     email: siteConfig.email,
     address: {
       "@type": "PostalAddress",
-      streetAddress:
-        "MASTER MIND 4, Office No A321, CTS No 1627, Royal Palm, Goregaon East",
+      streetAddress: "1/3, Sunny Mendoza House Kanjur Marg",
       addressLocality: "Mumbai",
       addressRegion: "MH",
-      postalCode: "400065",
+      postalCode: "400042",
       addressCountry: "IN",
     },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 19.1663,
-      longitude: 72.8526,
-    },
+    // geo: {
+    //   "@type": "GeoCoordinates",
+    //   latitude: 19.1663,
+    //   longitude: 72.8526,
+    // },
     openingHours: [siteConfig.hours],
     sameAs: [],
   };
@@ -105,7 +104,13 @@ function buildStructuredData() {
     },
   };
 
-  return [localBusiness, professionalService, faqSchema, breadcrumbList, aggregateRating];
+  return [
+    localBusiness,
+    professionalService,
+    faqSchema,
+    breadcrumbList,
+    aggregateRating,
+  ];
 }
 
 export default function RootLayout({

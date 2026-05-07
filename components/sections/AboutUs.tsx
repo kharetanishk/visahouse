@@ -20,7 +20,7 @@ export function AboutUs() {
             VisaHouse was founded in the heart of Mumbai with one simple belief
             — that every traveller deserves a stress-free path to their
             destination. Starting from scratch as a one-desk operation in
-            Goregaon, we grew through word of mouth, one satisfied client at a
+            Mumbai, we grew through word of mouth, one satisfied client at a
             time. Today, we are a team of experienced visa specialists serving
             clients across India, with expertise spanning 90+ countries and
             every major visa category.

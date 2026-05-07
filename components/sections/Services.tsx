@@ -1,17 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { BriefcaseBusiness, GraduationCap, Luggage, Plane, PlaneTakeoff, RefreshCcw } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  GraduationCap,
+  Luggage,
+  Plane,
+  PlaneTakeoff,
+  RefreshCcw,
+} from "lucide-react";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SkeuCard } from "@/components/ui/SkeuCard";
 import { services } from "@/lib/data/services";
 
 function getServiceIcon(title: string) {
-  if (title.includes("Tourist")) return <Plane className="h-7 w-7 text-accent-gold" aria-hidden />;
-  if (title.includes("Business")) return <BriefcaseBusiness className="h-7 w-7 text-accent-gold" aria-hidden />;
-  if (title.includes("Student")) return <GraduationCap className="h-7 w-7 text-accent-gold" aria-hidden />;
-  if (title.includes("Work")) return <PlaneTakeoff className="h-7 w-7 text-accent-gold" aria-hidden />;
-  if (title.includes("Transit")) return <RefreshCcw className="h-7 w-7 text-accent-gold" aria-hidden />;
+  if (title.includes("Tourist"))
+    return <Plane className="h-7 w-7 text-accent-gold" aria-hidden />;
+  if (title.includes("Business"))
+    return (
+      <BriefcaseBusiness className="h-7 w-7 text-accent-gold" aria-hidden />
+    );
+  if (title.includes("Student"))
+    return <GraduationCap className="h-7 w-7 text-accent-gold" aria-hidden />;
+  if (title.includes("Work"))
+    return <PlaneTakeoff className="h-7 w-7 text-accent-gold" aria-hidden />;
+  if (title.includes("Transit"))
+    return <RefreshCcw className="h-7 w-7 text-accent-gold" aria-hidden />;
   return <Luggage className="h-7 w-7 text-accent-gold" aria-hidden />;
 }
 
@@ -21,7 +35,7 @@ export function Services() {
       id="services"
       title="Visa Services We Handle"
       subtitle="Whatever your reason to travel, we have the expertise to get you there."
-      aiSummary="Services — Lists visa services offered by VisaHouse including Tourist, Business, Student, Work Permit, Transit, and PR/Immigration."
+      aiSummary="Services — Lists visa services offered by VisaHouse including Tourist, Business, Student, Transit, and PR/Immigration."
     >
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((s) => (
@@ -53,4 +67,3 @@ export function Services() {
     </SectionWrapper>
   );
 }
-

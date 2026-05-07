@@ -18,7 +18,6 @@ const visaServices = [
   "Tourist Visa",
   "Business Visa",
   "Student Visa",
-  "Work Permit",
   "Transit Visa",
   "PR / Immigration",
 ] as const;
@@ -29,13 +28,16 @@ export function Footer() {
       <div className="container py-14">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <div className="font-display text-2xl tracking-tight">VisaHouse</div>
+            <div className="font-display text-2xl tracking-tight">
+              VisaHouse
+            </div>
             <p className="mt-2 font-body text-sm text-[rgba(253,248,240,0.78)]">
               {siteConfig.tagline}
             </p>
             <p className="mt-4 font-body text-sm leading-6 text-[rgba(253,248,240,0.74)]">
-              India&apos;s most trusted visa consultancy — helping travellers reach their
-              destinations with confidence, clarity, and zero stress.
+              India&apos;s most trusted visa consultancy — helping travellers
+              reach their destinations with confidence, clarity, and zero
+              stress.
             </p>
             <div className="mt-5 flex items-center gap-3">
               <Link
@@ -140,15 +142,27 @@ export function Footer() {
         <div className="container py-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div className="font-body text-xs text-[rgba(253,248,240,0.7)]">
             © 2026 VisaHouse. All rights reserved. |{" "}
-            <Link href="#" aria-label="Privacy Policy" className="hover:text-white">
+            <Link
+              href="#"
+              aria-label="Privacy Policy"
+              className="hover:text-white"
+            >
               Privacy Policy
             </Link>{" "}
             |{" "}
-            <Link href="#" aria-label="Terms of Service" className="hover:text-white">
+            <Link
+              href="#"
+              aria-label="Terms of Service"
+              className="hover:text-white"
+            >
               Terms of Service
             </Link>{" "}
             |{" "}
-            <Link href="/sitemap.xml" aria-label="Sitemap" className="hover:text-white">
+            <Link
+              href="/sitemap.xml"
+              aria-label="Sitemap"
+              className="hover:text-white"
+            >
               Sitemap
             </Link>
           </div>
@@ -162,4 +176,3 @@ export function Footer() {
 }
 
 export default Footer;
-

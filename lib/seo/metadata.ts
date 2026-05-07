@@ -9,8 +9,7 @@ export const siteConfig = {
   phone: "+91 77150 24527",
   whatsapp: "+91 93264 21740",
   email: "visahouse.co.in@gmail.com",
-  address:
-    "MASTER MIND 4, Office No A321, CTS No 1627, Royal Palm, Goregaon East, Mumbai – 400065",
+  address: "1/3, Sunny Mendoza House Kanjur Marg, Mumbai – 400042",
   hours: "Mo-Sa 10:00-19:00",
 } as const;
 
@@ -20,7 +19,8 @@ export const whatsappChatUrl = `https://wa.me/${siteConfig.whatsapp.replace(/\D/
 export const siteMetadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "VisaHouse — Trusted Visa Consultancy in Mumbai | 25,000+ Visas Processed",
+    default:
+      "VisaHouse — Trusted Visa Consultancy in Mumbai | 25,000+ Visas Processed",
     template: "%s | VisaHouse",
   },
   description: siteConfig.description,
@@ -76,7 +76,8 @@ export const siteMetadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "VisaHouse — Trusted Visa Consultancy",
-    description: "Mumbai's leading visa consultancy. 25,000+ visas. 99% success rate.",
+    description:
+      "Mumbai's leading visa consultancy. 25,000+ visas. 99% success rate.",
     images: ["/images/visahousesocial.png"],
   },
   alternates: {
@@ -86,4 +87,3 @@ export const siteMetadata: Metadata = {
     google: "PLACEHOLDER_GOOGLE_VERIFICATION",
   },
 };
-
