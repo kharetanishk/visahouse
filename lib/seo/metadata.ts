@@ -6,8 +6,8 @@ export const siteConfig = {
   tagline: "Your Visa. Our Responsibility.",
   description:
     "VisaHouse is Mumbai's leading visa consultancy with 10+ years of experience, 99% approval rate, and expertise across 90+ countries. Tourist, Business, Student & Work visas handled end-to-end.",
-  phone: "+91 77150 24527",
-  whatsapp: "+91 93264 21740",
+  phone: "+91 96531 51304",
+  whatsapp: "+91 96531 51304",
   email: "visahouse.co.in@gmail.com",
   address: "1/3, Sunny Mendoza House Kanjur Marg, Mumbai – 400042",
   hours: "Mo-Sa 10:00-19:00",
