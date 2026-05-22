@@ -3,13 +3,14 @@
 import * as React from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, AlertTriangle, Bell, Info, Clock, CalendarDays, Banknote } from "lucide-react";
+import { ChevronDown, AlertTriangle, Bell, Info, Clock, CalendarDays } from "lucide-react";
 import type { CountryVisaData, DocumentItem, ImportantNote } from "@/lib/data/visaDocuments";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { DocumentCard } from "@/components/ui/DocumentCard";
 import { ReferenceModal } from "@/components/ui/ReferenceModal";
 import { ContactSidebar } from "@/components/ui/ContactSidebar";
 import { CTAButton } from "@/components/ui/CTAButton";
+import { CountryFlag } from "@/components/ui/CountryFlag";
 import { getIcon } from "@/lib/utils/iconMap";
 import { cn } from "@/lib/utils";
 import { whatsappChatUrl } from "@/lib/seo/metadata";
@@ -19,16 +20,6 @@ type VisaChecklistProps = {
 };
 
 const UNIVERSAL_IDS = ["passport-front", "passport-back", "photograph"] as const;
-
-function toTwemojiFlagSrc(flag: string) {
-  const codePoints = Array.from(flag)
-    .map((ch) => ch.codePointAt(0)?.toString(16))
-    .filter(Boolean)
-    .join("-");
-  return codePoints
-    ? `https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/${codePoints}.svg`
-    : null;
-}
 
 export function VisaChecklist({ country }: VisaChecklistProps) {
   const [openGroups, setOpenGroups] = React.useState<Record<number, boolean>>({});
@@ -46,8 +37,6 @@ export function VisaChecklist({ country }: VisaChecklistProps) {
   const restMandatory = allMandatory.filter((d) => !seen.has(d.id));
 
   const requiredCount = universal.length + restMandatory.length;
-  const flagSrc = toTwemojiFlagSrc(country.flag);
-
   const openReference = (doc: DocumentItem) => {
     if (!doc.referenceImage) return;
     setModalDoc(doc);
@@ -83,17 +72,12 @@ export function VisaChecklist({ country }: VisaChecklistProps) {
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <div className="flex items-center gap-3">
-                    {flagSrc ? (
-                      <img
-                        src={flagSrc}
-                        alt={`${country.countryName} flag`}
-                        className="h-11 w-11 object-contain"
-                      />
-                    ) : (
-                      <span className="text-[48px]" aria-hidden>
-                        {country.flag}
-                      </span>
-                    )}
+                    <CountryFlag
+                      flag={country.flag}
+                      size={44}
+                      alt={`${country.countryName} flag`}
+                      className="h-11 w-11"
+                    />
                     <h2 className="font-display text-3xl sm:text-4xl text-accent-navy">
                       {country.countryName}
                     </h2>
@@ -119,9 +103,6 @@ export function VisaChecklist({ country }: VisaChecklistProps) {
                 </Pill>
                 <Pill icon={<CalendarDays className="h-4 w-4" aria-hidden />} label="Validity">
                   {country.validity}
-                </Pill>
-                <Pill icon={<Banknote className="h-4 w-4" aria-hidden />} label="From">
-                  {country.serviceFee}
                 </Pill>
               </div>
             </header>
@@ -285,7 +266,7 @@ function Pill({
   children,
 }: {
   icon: React.ReactNode;
-  label: string;
+  label?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -293,7 +274,7 @@ function Pill({
       <span className="text-accent-gold" aria-hidden>
         {icon}
       </span>
-      <span className="text-text-muted">{label}:</span>
+      {label ? <span className="text-text-muted">{label}:</span> : null}
       <span className="text-text-secondary">{children}</span>
     </span>
   );

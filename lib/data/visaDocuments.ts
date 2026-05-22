@@ -14,7 +14,7 @@
  * Change "dubai" (the key) to the new country slug e.g. "singapore"
  *
  *
- * Update countryKey, countryName, flag, visaType, processingTime, validity, serviceFee
+ * Update countryKey, countryName, flag, visaType, processingTime, validity
  *
  *
  * Update searchAliases with alternate names users might type
@@ -103,7 +103,6 @@ export interface CountryVisaData {
   visaType: string; // e.g. "Tourist Visa on Arrival / eVisa"
   processingTime: string; // e.g. "3–5 working days"
   validity: string; // e.g. "30 days / 60 days"
-  serviceFee: string; // e.g. "From ₹2,999"
   searchAliases: string[]; // Alt search terms e.g. ["UAE", "Emirates", "Abu Dhabi"]
   mandatoryDocuments: DocumentItem[];
   conditionalGroups: ConditionalGroup[];
@@ -311,7 +310,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist eVisa / Visa on Arrival",
     processingTime: "3–5 working days",
     validity: "30 days (extendable to 60 days)",
-    serviceFee: "From ₹2,999",
     searchAliases: ["UAE", "United Arab Emirates", "Emirates", "Abu Dhabi", "Sharjah"],
 
     mandatoryDocuments: [
@@ -533,7 +531,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist eVisa",
     processingTime: "3–5 working days",
     validity: "90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["KSA", "Riyadh", "Jeddah", "Mecca"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -558,7 +555,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist eVisa",
     processingTime: "3–5 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Doha"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -583,7 +579,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "5–7 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Kuwait City"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -608,7 +603,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist eVisa",
     processingTime: "3–5 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Muscat"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -633,7 +627,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist eVisa",
     processingTime: "3–5 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Manama"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -657,7 +650,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa on Arrival / eVisa",
     processingTime: "3–5 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Amman", "Petra"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -681,7 +673,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa on Arrival",
     processingTime: "On arrival",
     validity: "90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Tel Aviv", "Jerusalem"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -705,7 +696,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "5–10 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Beirut"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -729,7 +719,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "7–14 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Baghdad", "Karbala"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -754,7 +743,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa on Arrival / eVisa",
     processingTime: "5–10 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Tehran"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -778,7 +766,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "eVisa / Visa on Arrival",
     processingTime: "3–5 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Cairo", "Luxor", "Hurghada"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -803,7 +790,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "15–20 working days",
     validity: "6 months",
-    serviceFee: "Contact for pricing",
     searchAliases: ["UK", "England", "London", "Britain"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -839,7 +825,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "30–60+ working days",
     validity: "10 years (B1/B2)",
-    serviceFee: "Contact for pricing",
     searchAliases: ["USA", "America", "US", "New York"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -876,7 +861,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "20–30 working days",
     validity: "10 years",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Toronto", "Vancouver", "Montreal"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -912,7 +896,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "eVisa / eNTRI",
     processingTime: "3–5 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Kuala Lumpur", "KL", "Langkawi"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -937,7 +920,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "5–7 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["SG"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -963,7 +945,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa on Arrival / e-Visa",
     processingTime: "2–5 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Bangkok", "Phuket", "Pattaya"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -988,7 +969,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist eVisa",
     processingTime: "3–5 working days",
     validity: "90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Hanoi", "Ho Chi Minh", "Saigon"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1012,7 +992,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist eVisa / Visa on Arrival",
     processingTime: "3–5 working days",
     validity: "30 days (extendable)",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Bali", "Jakarta"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1037,7 +1016,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "5–7 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Manila", "Boracay", "Cebu"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1062,7 +1040,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist eVisa",
     processingTime: "3–5 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Phnom Penh", "Siem Reap"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1086,7 +1063,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa on Arrival / eVisa",
     processingTime: "3–5 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Vientiane", "Luang Prabang"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1110,7 +1086,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist eVisa",
     processingTime: "5–7 working days",
     validity: "28 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Yangon", "Mandalay", "Burma"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1134,7 +1109,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa on Arrival",
     processingTime: "On arrival",
     validity: "15 / 30 / 90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Kathmandu", "Pokhara"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1158,7 +1132,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist ETA",
     processingTime: "1–3 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Colombo", "Ceylon"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1182,7 +1155,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa on Arrival (Free)",
     processingTime: "On arrival",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Male"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1206,7 +1178,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "5–7 working days",
     validity: "Duration of tour",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Thimphu", "Paro"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1231,7 +1202,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "5–7 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Dhaka"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1257,7 +1227,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "5–7 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Tokyo", "Osaka", "Kyoto"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1284,7 +1253,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "5–7 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Korea", "Seoul"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1311,7 +1279,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "5–10 working days",
     validity: "14 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["HK"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1337,7 +1304,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "5–7 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Taipei"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1371,7 +1337,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist eVisa (ASAN Visa)",
     processingTime: "3–5 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Baku"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1396,7 +1361,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa-Free (1 Year)",
     processingTime: "No processing required",
     validity: "365 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Tbilisi", "Batumi"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1419,7 +1383,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "eVisa / Visa on Arrival",
     processingTime: "3–5 working days",
     validity: "21 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Yerevan"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1442,7 +1405,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist eVisa",
     processingTime: "5–7 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Almaty", "Astana"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1467,7 +1429,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist eVisa",
     processingTime: "3–5 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Tashkent", "Samarkand"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1492,7 +1453,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Paris", "Schengen"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1506,7 +1466,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Zurich", "Geneva"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1520,7 +1479,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Berlin", "Munich"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1534,7 +1492,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Rome", "Milan", "Venice"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1548,7 +1505,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Madrid", "Barcelona"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1562,7 +1518,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Amsterdam", "Holland"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1576,7 +1531,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Vienna", "Salzburg"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1590,7 +1544,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Athens", "Santorini"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1604,7 +1557,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Brussels"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1618,7 +1570,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Lisbon", "Porto"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1632,7 +1583,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Warsaw", "Krakow"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1646,7 +1596,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Prague", "Czechia"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1660,7 +1609,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Budapest"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1674,7 +1622,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Stockholm"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1688,7 +1635,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Oslo"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1702,7 +1648,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Copenhagen"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1716,7 +1661,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Helsinki"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1730,7 +1674,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Reykjavik"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1744,7 +1687,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Zagreb", "Dubrovnik"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1758,7 +1700,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Bucharest"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1772,7 +1713,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Sofia"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1786,7 +1726,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Tallinn"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1800,7 +1739,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Ljubljana"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1814,7 +1752,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Bratislava"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1828,7 +1765,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Schengen Visa",
     processingTime: "10–15 working days",
     validity: "Up to 90 days in 180-day period",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Valletta"],
     mandatoryDocuments: [...UNIVERSAL_3, ...SCHENGEN_DOCS],
     conditionalGroups: [],
@@ -1843,7 +1779,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "15–20 working days",
     validity: "90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Dublin"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1871,7 +1806,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist eVisa",
     processingTime: "1–3 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Istanbul", "Turkiye", "Cappadocia"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1896,7 +1830,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "10–15 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Moscow", "Saint Petersburg"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1922,7 +1855,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "10–15 working days",
     validity: "90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Nicosia", "Limassol"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1947,7 +1879,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa-Free (with conditions)",
     processingTime: "No processing required",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Belgrade"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1970,7 +1901,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa-Free (with conditions)",
     processingTime: "No processing required",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Kotor", "Podgorica"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -1992,7 +1922,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa-Free",
     processingTime: "No processing required",
     validity: "90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Tirana"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2015,7 +1944,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visitor Visa (Subclass 600)",
     processingTime: "15–20 working days",
     validity: "12 months (max 3 months per stay)",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Sydney", "Melbourne", "Brisbane"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2043,7 +1971,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visitor Visa",
     processingTime: "10–20 working days",
     validity: "9 months (max 3 months per visit)",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Auckland", "Queenstown"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2070,7 +1997,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa on Arrival",
     processingTime: "On arrival",
     validity: "4 months",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Nadi", "Suva"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2095,7 +2021,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "5–10 working days",
     validity: "180 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Cancun", "Mexico City"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2119,7 +2044,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist eVisa",
     processingTime: "3–5 working days",
     validity: "90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Rio", "Sao Paulo"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2145,7 +2069,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "5–10 working days",
     validity: "90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Buenos Aires"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2169,7 +2092,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "5–10 working days",
     validity: "90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Lima", "Machu Picchu"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2193,7 +2115,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "5–10 working days",
     validity: "90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Santiago"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2216,7 +2137,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "5–10 working days",
     validity: "90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Bogota", "Medellin"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2240,7 +2160,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "5–10 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Panama City"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2271,7 +2190,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required / Visa Waiver",
     processingTime: "5–10 working days",
     validity: "90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["San Jose"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2302,7 +2220,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist Card Required",
     processingTime: "3–5 working days",
     validity: "30 days (extendable)",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Havana"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2326,7 +2243,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist Card on Arrival",
     processingTime: "On arrival",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Punta Cana", "Santo Domingo"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2351,7 +2267,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa-Free (90 days)",
     processingTime: "No processing required",
     validity: "90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Port Louis"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2374,7 +2289,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visitor's Permit on Arrival (Free)",
     processingTime: "On arrival",
     validity: "30 days (extendable)",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Mahe", "Victoria"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2396,7 +2310,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "10–15 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Cape Town", "Johannesburg"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2432,7 +2345,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "East Africa Tourist Visa / eVisa",
     processingTime: "3–5 working days",
     validity: "90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Nairobi", "Mombasa"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2456,7 +2368,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist eVisa",
     processingTime: "3–5 working days",
     validity: "90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Zanzibar", "Dar es Salaam"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2480,7 +2391,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "5–10 working days",
     validity: "90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Marrakech", "Casablanca"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2505,7 +2415,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist eVisa",
     processingTime: "3–5 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Addis Ababa"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2529,7 +2438,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "7–14 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Lagos", "Abuja"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2554,7 +2462,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Visa Required",
     processingTime: "7–14 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Accra"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2579,7 +2486,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "East Africa Tourist Visa / eVisa",
     processingTime: "3–5 working days",
     validity: "90 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Kampala"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,
@@ -2603,7 +2509,6 @@ export const visaDocumentData: Record<string, CountryVisaData> = {
     visaType: "Tourist eVisa",
     processingTime: "3–5 working days",
     validity: "30 days",
-    serviceFee: "Contact for pricing",
     searchAliases: ["Kigali"],
     mandatoryDocuments: [
       ...UNIVERSAL_3,

@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { MapPin, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CTAButton } from "@/components/ui/CTAButton";
+import { CountryFlag } from "@/components/ui/CountryFlag";
 import { getAllCountriesForSearch } from "@/lib/data/visaDocuments";
 import { useTransitionContext } from "@/lib/context/TransitionContext";
 import { useRouter } from "next/navigation";
@@ -163,9 +164,12 @@ export function VisaSearch() {
                           )}
                         >
                           <div className="flex items-center gap-3">
-                            <span className="text-2xl" aria-hidden>
-                              {r.flag}
-                            </span>
+                            <CountryFlag
+                              flag={r.flag}
+                              size={28}
+                              alt={`${r.name} flag`}
+                              className="h-7 w-7"
+                            />
                             <div>
                               <div className="font-display text-sm text-accent-navy">
                                 {r.name}

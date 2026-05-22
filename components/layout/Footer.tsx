@@ -2,17 +2,8 @@
 
 import Link from "next/link";
 import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
+import { homeNavLinks } from "@/lib/navigation";
 import { siteConfig, whatsappChatUrl } from "@/lib/seo/metadata";
-
-const quickLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Destinations", href: "#destinations" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
-] as const;
 
 const visaServices = [
   "Tourist Visa",
@@ -74,7 +65,7 @@ export function Footer() {
           <div>
             <div className="font-display text-lg">Quick Links</div>
             <ul className="mt-4 space-y-2 font-body text-sm">
-              {quickLinks.map((l) => (
+              {homeNavLinks.map((l) => (
                 <li key={l.href}>
                   <Link
                     href={l.href}

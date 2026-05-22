@@ -5,6 +5,7 @@ import "./globals.css";
 import { siteMetadata, siteConfig } from "@/lib/seo/metadata";
 import { faqs } from "@/lib/data/faqs";
 import { TransitionProvider } from "@/lib/context/TransitionContext";
+import { StartingPriceFlash } from "@/components/promo/StartingPriceFlash";
 import { TwemojiBodyParser } from "@/components/TwemojiBodyParser";
 
 const display = Playfair_Display({
@@ -139,7 +140,10 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <TwemojiBodyParser />
         </Suspense>
-        <TransitionProvider>{children}</TransitionProvider>
+        <TransitionProvider>
+          {children}
+          <StartingPriceFlash />
+        </TransitionProvider>
       </body>
     </html>
   );

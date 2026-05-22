@@ -6,17 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CTAButton } from "@/components/ui/CTAButton";
+import { homeNavLinks } from "@/lib/navigation";
 import { whatsappChatUrl } from "@/lib/seo/metadata";
-
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Destinations", href: "#destinations" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
-] as const;
 
 export function Header() {
   const [open, setOpen] = React.useState(false);
@@ -51,7 +42,7 @@ export function Header() {
         <div className="container">
           <div className="flex h-16 items-center justify-between gap-3">
             <Link
-              href="#home"
+              href="/"
               aria-label="VisaHouse home"
               className="flex items-center gap-2"
             >
@@ -67,7 +58,7 @@ export function Header() {
 
             <div className="hidden lg:flex items-center gap-6">
               <ul className="flex items-center gap-6">
-                {navLinks.map((l) => (
+                {homeNavLinks.map((l) => (
                   <li key={l.href}>
                     <Link
                       href={l.href}
@@ -143,7 +134,7 @@ export function Header() {
             >
               <div className="container py-4">
                 <ul className="flex flex-col gap-3">
-                  {navLinks.map((l) => (
+                  {homeNavLinks.map((l) => (
                     <li key={l.href}>
                       <Link
                         href={l.href}

@@ -5,7 +5,6 @@ export type Destination = {
   country: string;
   flag: string;
   visaType: DestinationVisaBadge;
-  serviceFeeFrom: string;
   processingTime: string;
   visaTypes: string[];
 };
@@ -16,7 +15,6 @@ export const destinations: Destination[] = [
     country: "UAE / Dubai",
     flag: "🇦🇪",
     visaType: "e-Visa",
-    serviceFeeFrom: "₹2,999",
     processingTime: "3–5 working days",
     visaTypes: ["Tourist", "Visit", "Transit"],
   },
@@ -25,7 +23,6 @@ export const destinations: Destination[] = [
     country: "Singapore",
     flag: "🇸🇬",
     visaType: "e-Visa",
-    serviceFeeFrom: "₹3,499",
     processingTime: "5–7 working days",
     visaTypes: ["Tourist", "Business"],
   },
@@ -34,7 +31,6 @@ export const destinations: Destination[] = [
     country: "Thailand",
     flag: "🇹🇭",
     visaType: "Visa on Arrival",
-    serviceFeeFrom: "₹1,999",
     processingTime: "2–3 working days",
     visaTypes: ["Tourist"],
   },
@@ -43,7 +39,6 @@ export const destinations: Destination[] = [
     country: "United Kingdom",
     flag: "🇬🇧",
     visaType: "Visa Required",
-    serviceFeeFrom: "₹7,999",
     processingTime: "15–20 working days",
     visaTypes: ["Tourist", "Business", "Student", "Work"],
   },
@@ -52,7 +47,6 @@ export const destinations: Destination[] = [
     country: "United States",
     flag: "🇺🇸",
     visaType: "Visa Required",
-    serviceFeeFrom: "₹9,999",
     processingTime: "30–60 working days",
     visaTypes: ["Tourist", "Business", "Student", "Work"],
   },
@@ -61,7 +55,6 @@ export const destinations: Destination[] = [
     country: "Schengen (Europe)",
     flag: "🇩🇪",
     visaType: "Visa Required",
-    serviceFeeFrom: "₹6,999",
     processingTime: "10–15 working days",
     visaTypes: ["Tourist", "Business", "Visit"],
   },
@@ -70,7 +63,6 @@ export const destinations: Destination[] = [
     country: "Australia",
     flag: "🇦🇺",
     visaType: "e-Visa",
-    serviceFeeFrom: "₹8,499",
     processingTime: "15–20 working days",
     visaTypes: ["Tourist", "Business", "Student", "Work"],
   },
@@ -79,7 +71,6 @@ export const destinations: Destination[] = [
     country: "Canada",
     flag: "🇨🇦",
     visaType: "Visa Required",
-    serviceFeeFrom: "₹8,999",
     processingTime: "20–30 working days",
     visaTypes: ["Tourist", "Business", "Student", "Work"],
   },
@@ -88,7 +79,6 @@ export const destinations: Destination[] = [
     country: "Japan",
     flag: "🇯🇵",
     visaType: "Visa Required",
-    serviceFeeFrom: "Contact for pricing",
     processingTime: "5–7 working days",
     visaTypes: ["Tourist", "Business"],
   },
@@ -97,7 +87,6 @@ export const destinations: Destination[] = [
     country: "Maldives",
     flag: "🇲🇻",
     visaType: "Visa on Arrival",
-    serviceFeeFrom: "Contact for pricing",
     processingTime: "On arrival",
     visaTypes: ["Tourist"],
   },
@@ -106,7 +95,6 @@ export const destinations: Destination[] = [
     country: "South Africa",
     flag: "🇿🇦",
     visaType: "Visa Required",
-    serviceFeeFrom: "Contact for pricing",
     processingTime: "10–15 working days",
     visaTypes: ["Tourist", "Business"],
   },
@@ -115,7 +103,6 @@ export const destinations: Destination[] = [
     country: "Bali / Indonesia",
     flag: "🇮🇩",
     visaType: "Visa on Arrival",
-    serviceFeeFrom: "Contact for pricing",
     processingTime: "On arrival / 3–5 working days",
     visaTypes: ["Tourist"],
   },

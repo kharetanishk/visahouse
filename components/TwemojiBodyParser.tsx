@@ -13,11 +13,19 @@ export function TwemojiBodyParser() {
 
   useEffect(() => {
     const parse = () => {
-      twemoji.parse(document.body, { folder: "svg", ext: ".svg" });
+      twemoji.parse(document.body, {
+        folder: "svg",
+        ext: ".svg",
+        base: "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/",
+      });
     };
     parse();
     const id = requestAnimationFrame(() => parse());
-    return () => cancelAnimationFrame(id);
+    const t = window.setTimeout(parse, 150);
+    return () => {
+      cancelAnimationFrame(id);
+      window.clearTimeout(t);
+    };
   }, [pathname]);
 
   return null;

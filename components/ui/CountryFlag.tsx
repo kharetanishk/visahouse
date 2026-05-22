@@ -1,39 +1,45 @@
 "use client";
 
+import { getTwemojiFlagSrc } from "@/lib/utils/twemojiFlag";
+import { cn } from "@/lib/utils";
+
 interface CountryFlagProps {
   flag: string;
   size?: number;
+  className?: string;
+  alt?: string;
 }
 
-export function CountryFlag({ flag, size = 20 }: CountryFlagProps) {
-  const codePoints = [...flag]
-    .map((char) => char.codePointAt(0)?.toString(16))
-    .filter(Boolean)
-    .join("-");
+export function CountryFlag({
+  flag,
+  size = 20,
+  className,
+  alt = "Country flag",
+}: CountryFlagProps) {
+  const src = getTwemojiFlagSrc(flag);
 
-  const twemojiUrl = `https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/${codePoints}.svg`;
+  if (!src) {
+    return (
+      <span
+        className={cn("inline-block leading-none", className)}
+        style={{ fontSize: size }}
+        aria-hidden
+      >
+        {flag}
+      </span>
+    );
+  }
 
   return (
     <img
-      src={twemojiUrl}
-      alt={flag}
+      src={src}
+      alt={alt}
       width={size}
       height={size}
-      style={{
-        display: "inline-block",
-        verticalAlign: "middle",
-        marginRight: "8px",
-        flexShrink: 0,
-      }}
-      onError={(e) => {
-        const target = e.target as HTMLImageElement;
-        target.style.display = "none";
-        if (target.nextSibling === null) {
-          const span = document.createElement("span");
-          span.textContent = `${flag} `;
-          target.parentNode?.insertBefore(span, target);
-        }
-      }}
+      className={cn("inline-block shrink-0 object-contain", className)}
+      style={{ width: size, height: size }}
+      loading="lazy"
+      decoding="async"
     />
   );
 }

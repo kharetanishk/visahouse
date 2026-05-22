@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SkeuCard } from "@/components/ui/SkeuCard";
+import { CountryFlag } from "@/components/ui/CountryFlag";
 import { destinations } from "@/lib/data/destinations";
 import { cn } from "@/lib/utils";
 import { useTransitionContext } from "@/lib/context/TransitionContext";
@@ -78,7 +79,7 @@ export function Destinations() {
       id="destinations"
       title="Popular Visa Destinations"
       subtitle="Explore our most-requested destinations and start your application today."
-      aiSummary="Destinations — Shows popular visa destinations (UAE, Singapore, Thailand, UK, USA, Schengen, Australia, Canada) with visa type badge, starting service fee, and processing time."
+      aiSummary="Destinations — Shows popular visa destinations (UAE, Singapore, Thailand, UK, USA, Schengen, Australia, Canada) with visa type badge and processing time."
       className="bg-warm-white"
     >
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -94,9 +95,12 @@ export function Destinations() {
             }}
           >
             <div className="flex items-start justify-between gap-3">
-              <div className="text-[40px]" aria-hidden>
-                {d.flag}
-              </div>
+              <CountryFlag
+                flag={d.flag}
+                size={40}
+                alt={`${d.country} flag`}
+                className="h-10 w-10"
+              />
               <span
                 className={cn(
                   "inline-flex items-center rounded-full border px-3 py-1 text-xs font-body font-semibold shadow-sku-raised",
@@ -116,16 +120,9 @@ export function Destinations() {
               {d.country}
             </h3>
 
-            <div className="mt-4 space-y-2 font-body text-sm text-text-secondary">
-              <div>
-                <span className="font-semibold text-accent-navy">From:</span>{" "}
-                {d.serviceFeeFrom}{" "}
-                <span className="text-text-muted">(service fee)</span>
-              </div>
-              <div>
-                <span className="font-semibold text-accent-navy">Processing:</span>{" "}
-                {d.processingTime}
-              </div>
+            <div className="mt-4 font-body text-sm text-text-secondary">
+              <span className="font-semibold text-accent-navy">Processing:</span>{" "}
+              {d.processingTime}
             </div>
 
             <div className="mt-6">

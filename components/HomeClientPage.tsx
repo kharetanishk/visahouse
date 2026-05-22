@@ -18,6 +18,7 @@ import { FAQ } from "@/components/sections/FAQ";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { visaDocumentData } from "@/lib/data/visaDocuments";
 import { CTAButton } from "@/components/ui/CTAButton";
+import { CountryFlag } from "@/components/ui/CountryFlag";
 import { cn } from "@/lib/utils";
 
 export function HomeClientPage() {
@@ -118,7 +119,14 @@ export function HomeClientPage() {
             <div className="flex items-start justify-between gap-3">
               <div>
                 <div className="font-display text-base text-accent-navy">
-                  {selectedCountry.flag} {selectedCountry.countryName} Checklist
+                  <span className="inline-flex items-center gap-2">
+                    <CountryFlag
+                      flag={selectedCountry.flag}
+                      size={22}
+                      alt={`${selectedCountry.countryName} flag`}
+                    />
+                    {selectedCountry.countryName} Checklist
+                  </span>
                 </div>
                 <div className="mt-1 font-body text-xs text-text-secondary">
                   Tap to view the full document checklist below.
